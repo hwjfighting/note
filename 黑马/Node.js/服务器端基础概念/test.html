@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function getData(callback){
+        callback('123');
+    }
+    getData(function(n){
+        console.log('callback函数被调用了')
+        console.log(n);
+    })
+
+    function getMsg(callback){ //callback是一个形参
+        setTimeout(function(){
+            callback({                //在调用callback以后 将异步API执行的结果 通过参数的形式传递出来
+                msg:'hello node.js'
+            },2000)
+        })
+    }
+
+    getMsg(function(data){ //function是一个实参是一个匿名函数 data用来接收异步API执行的结果
+        console.log(data)
+    });
+    // getMsg(data => {console.log(data)})
+</script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+URL：统一资源定位符，又叫URL（Uniform ResourceLocator），是专门为标识Internet网上资源位置而设的一种编址方式
+我们平时所说的网页地址指的就是URL
+URL的组成
+传输协议://服务器IP或域名:端口/资源位置标识
+http:超文本传输协议，提供了一种发布和接收HTML页面的方法
+
+本地域名：localhost
+本地IP：127.0.0.1
+
+创建web服务器
+//引用系统模块
+const http=require('http');
+//创建web服务器
+const app=http.createServer();
+//当客户端发送请求的时候
+app.on('require',(req,res)=>{            //app 服务器对象 on添加事件  第一个参数 事件名称  第二个参数 事件处理函数
+    //响应
+    res.end('<h1>hi,user</h1>')
+});
+//监听3000端口
+app.listen(3000);
+console.log('服务器已启动，监听3000端口，请访问localhost:3000')
+
+·HTTP请求与响应处理
+请求报文
+    form标签中 method：指定当前表单提交方式 action：指定当前表单提交的地址
+    请求方式（Request Method）
+    GET 请求数据  //地址栏输出网址的请求方式为get
+    POST 发送数据 //表单提交方式
+    app.on('require',(req,res)=>{            //app 服务器对象 on添加事件  第一个参数 事件名称  第二个参数 事件处理函数
+        req.headers //获取请求报文     获取报文的具体信息 req.headers['accept']
+        req.url     //获取请求地址
+        req.method  //获取请求方式
+        res.writeHead(200,{
+            'content-type': 'text/html;charset=utf8'
+        }) //写入报文头信息 将状态码为200  当前返回的内容是html文本
+    });
+响应报文
+    1.HTTP状态码
+        200请求成功
+        404请求的资源没有被找到
+        505服务器端错误
+        400客户端请求有语法错误
+    2.内容类型
+        text/html
+        text/css
+        application/javascript
+        image/jpeg
+        application/json
+    app.on('require',(req,res)=>{            //app 服务器对象 on添加事件  第一个参数 事件名称  第二个参数 事件处理函数
+           res.writeHead(200,{
+            'content-type':'text/html,charset=utf8'
+           })
+        });
+GET请求参数
+    参数被放置在浏览器地址栏中，例如：http://localhost:3000/?name=zhangsan&age=20
+    const url=require('url');//引入第三方模块 用于处理url地址
+    //参数1 要解析的url地址 参数2 将查询参数解析成对象形式
+    let {query,pathname}=url.parse(req.url,true);         //true表示在query中把请求参数 解析成对象的形式了
+    console.log(query.name)
+    console.log(query.age)
+
+    // Url {
+    //     protocol: null,
+    //     slashes: null,
+    //     auth: null,
+    //     host: null,
+    //     port: null,
+    //     hostname: null,
+    //     hash: null,
+    //     search: '?callback=showInfo',
+    //     query: { callback: 'showInfo' },
+    //     pathname: '/getScript',
+    //     path: '/getScript?callback=showInfo',
+    //     href: '/getScript?callback=showInfo'
+    // }
+
+    //pathname中包含不带请求参数的请求地址
+post请求参数
+    FormData中包含请求参数
+    /*
+    ·参数被放置在请求体中进行传输
+    ·post参数是通过事件的方式接收的
+    ·获取POST参数需要使用data事件和end事件
+    ·当请求参数传递的时候触发data事件 当参数传递完成的时候触发end事件
+    ·使用querystring系统模块将参数转换为对象格式
+    */
+
+    //处理请求参数模块
+    const querystring=require('querystring')
+    //当客户端有请求来的时候
+    app.on('require',(req,res)=>{
+        //post参数是通过事件的方式接受的
+        //data 当请求参数传递的时候触发data事件
+        //end   当请求参数完成传递的时候触发end事件
+        let postParams='';
+        req.on('data',(params)=>{
+            postParams+=params
+        });
+        req.on('end',()=>{
+            //postParams是字符串形式的参数querystring.parse()将其处理为对象形式
+            console.log(querystring.parse(postParams))
+        });
+        res.end('ok');
+    });
+
+路由
+    路由是指客户端请求地址与服务器端程序代码的对应关系。简单的说，就是请求什么，响应什么
+    //1.引入系统模块http
+    //2.创建网站服务器
+    //3.为网站服务器对象添加请求事件
+    //4.实现路由功能
+    //  1.获取客户端的请求方式
+    //  2.获取客户端的请求地址
+    const http = require('http');
+    const url = require('url');
+    const app = http.createServer();
+    app.on('require', (req, res) => {
+        //获取请求方式
+        const method = req.method.toLowerCase();
+        //获取请求地址
+        const pathname = url.parse(req.url).pathname;
+
+        res.writeHead(200, {
+            'content-type': 'text/html;charset=utf8'
+        })
+
+        if (method == 'get') {
+            if (pathname == '/' || pathname == '/index') {
+                res.end('欢迎来到首页')
+            } else if (pathname == '/list') {
+                res.end('欢迎来到列表页')
+            } else {
+                res.end('您访问的页面不存在')
+            }
+        } else if (method == 'post') {
+
+        }
+
+    });
+
+    app.listen(3000);
+    console.log('服务器已启动，监听3000端口，请访问localhost:3000');
+
+静态资源
+    服务器端不需要处理，可以直接响应给客户端的资源就是静态资源，例如CSS、JavaScript、image文件
+    请求静态资源文件：
+    const http = require('http');
+    const url = require('url');
+    const path=require('path');
+    const fs=require('fs');
+    const mime=require('mime');//可以根据当前的请求路径分析出资源的类型，然后把类型通过返回值的方式返回
+
+    const app = http.createServer();
+
+    app.on('require', (req, res) => {
+        //获取用户的请求路径
+        let pathname=url.parse(req.url).pathname;
+        pathname='/' ? 'default.html' : pathname;
+        //将用户的请求路径转换为实际的服务器硬盘路径
+        let realPath=path.join(__dirname,'public'+pathname);//__dirname 总是指向被执行 js 文件的绝对路径，
+        let type=mime.getType(realPath);
+        //读取文件
+        fs.readFile(realFile,(error,result)=>{
+        if(error!=null){
+            res.writeHead(404,{
+                'content-type':'text/html;charset=utf8'
+            })
+            res.end('文件读取失败');
+            return;
+        }
+        res.writeHead(200,{
+             'content-type':type;
+        })
+            res.end(realFile);
+        })
+
+    });
+
+    app.listen(3000);
+    console.log('服务器已启动，监听3000端口，请访问localhost:3000');
+    ====================
+    绝对路径就是无论从外部还是内部访问，都能够通过此路径找到文件夹。
+    而相对路径是相对于自身的，其他位置的文件和路径，只能通过内部访问。
+    外部不能通过此路径访问到文件，通俗的来说，绝对路径是一条大家都能够通到目的地的路
+    而相对路径是一条只有你自己知道怎么走的路，以上就是相对路径与绝对路径的区别。
+    ====================
+
+动态资源
+    相同的请求地址（不同的请求参数）不同的响应资源，这种资源就是动态资源
+
+
+Node.js异步编程
+    同步API，异步API
+    同步API：只有当前API执行完成后，才能继续执行下一个API，同步API可以从返回值中拿到API执行的结果
+    异步API：当前代码的执行不会阻塞后续代码的执行
+    function getMsg(){
+        setTimeout(function(){
+            return {
+                msg:'hello node.js'
+            }
+        },2000)
+    }
+    const msg=getMsg();
+    console.log(msg);   //结果是undefined 因为异步函数不会阻塞代码的执行，所以一调用函数直接return undefined
+                        //
+    在异步API中，是无法通过返回值的方式拿到异步API的执行结果的
+    异步API的返回值是通过回调函数的方式拿到的
+
+    ·回调函数：自己定义函数让别人去调用。
+     回调函数(一个函数作为参数需要依赖另一个函数执行调用)
+    A callback is a function that is passed as an argument to
+    another function and is executed after its parent function has completed.
+    //getData函数定义
+    function getData(callback){}
+    //getData 函数调用
+    getData(()=>{});         // 括号里是一个函数的定义
+
+    function getData(callback){
+        callback('123');
+    }
+    getData(function(n){
+        console.log('callback函数被调用了')
+        console.log(n);
+    })
+
+    如果getData函数内部有异步操作，那么在异步操作执行完成之后，
+    就可以调用回调函数，并且把异步API执行的结果通过参数的形式传递给callback
+    那么在getData里面的回调函数里面就能够拿到异步API执行的结果
+    function getMsg(callback){ //callback是一个形参
+        setTimeout(function(){
+            callback({                //在调用callback以后 将异步API执行的结果 通过参数的形式传递出来
+                msg:'hello node.js'
+            },2000)
+        })
+    }
+
+    getMsg(function(data){ //function是一个实参是一个匿名函数 data用来接收异步API执行的结果
+        console.log(data)
+    })
+    getMsg(data => {console.log(data)})
+
+同步API，异步API的区别（代码执行顺序）
+    同步API从上到下依次执行，前面的代码会阻塞后面的代码的执行
+    异步API不会等到API执行完成后再向下执行代码
+
+Node.js中的异步API
+    文件读取结果
+    fs.readFile('./demo.txt,(err,result)=>{}')
+    在文件读取之后 系统会调用回调函数，并且在调用回调函数的时候会将文件读取的结果，通过回调函数参数的
+    形式传递过来
+
+    事件监听的API
+    var server=http.createServer();
+    server.on('request',(req,res)=>{});
+    //事件处理函数的执行都是在事件发生的时候系统去调用的
+    //系统在调用的时候给我们传递了两个参数分别是请求对象和响应对象
+    //所以我们在定义这个函数的时候才能通过形参的方式接收这两个对象
+    //所以事件处理函数就是回调函数 事件监听的API就是异步API
+
+    回调地狱(函数作为参数层层嵌套)
+    例如：
+        const fs=require('fs');
+        fs.readFile('./1.txt','utf8',(err,result1)=>{
+            console.log(result1)
+             fs.readFile('./2.txt','utf8',(err,result2)=>{
+                    console.log(result2)
+                     fs.readFile('./3.txt','utf8',(err,result3)=>{
+                            console.log(result3)
+                     })
+             })
+        })
+
+    解决方法：es6中提供了Promis方法、异步函数
+Promise
+    Promise出现的目的是解决Node.js异步编程中回调地狱的问题
+    Promise并没有提供新的功能，他只是异步编程语法上的一种改进
+    可以让我们将异步API的执行和结果的处理分离
+    let promise=new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            if(true){
+                resolve({name:'张三'})
+            }else{
+                reject('失败了')
+            }
+        },2000);
+    })
+    Promise.then(result=>console.log(result))//{name:'张三'}
+           .catch(error=>console.log(error))//失败了
+
+    promise提供了链式编程的语法
+
+    function p1(){
+        return new Promise((resolve,reject)=>{
+            fs.readFile('./1.txt','utf8',(err,result)=>{
+                resolve(result)
+            })
+        })
+    }
+    function p2(){
+        return new Promise((resolve,reject)=>{
+            fs.readFile('./1.txt','utf8',(err,result)=>{
+                resolve(result)
+            })
+        })
+    }
+    function p2(){
+        return new Promise((resolve,reject)=>{
+            fs.readFile('./1.txt','utf8',(err,result)=>{
+                resolve(result)
+            })
+        })
+    }
+    p1().then((r1)=>{
+        console.log(r1);
+        return p2();
+    })
+    .then((r2)=>{
+        console.log(r2);
+        return p3();
+    })
+    .then((r3)=>{
+        console.log(r3);
+    })
+
+异步函数
+    异步函数是异步编程语法的终极解决方案，它可以让我们将异步代码写成同步的形式，
+    让代码不再有回调函数嵌套，使代码变得清晰明了。
+    1.在普通函数定义前面加上async就变成了异步函数
+    2.异步函数默认的返回值是promise对象
+    3.在异步函数内部使用return关键字进行结果返回 结果会被包裹在promise对象中
+        return关键字代替了resolve方法
+    4.在异步函数内部使用throw关键字进行错误抛出 throw一旦执行 后面的代码不再执行
+    5.调用异步函数再链式调用then方法获取异步函数执行结果
+    6.调用异步函数再链式调用catch方法获取异步函数执行的错误信息
+
+    const fn=async()=>{}
+    async function fn () {}
+
+    async function fn(){
+        throw '发生了一些错误'
+        return 123;
+    }
+
+    fn().then(function(data){
+        console.log(data); // Promise{123}
+    }).catch(function(err){
+        console.log(err);//发生了一些错误
+    })
+
+    await 关键字
+    1.它只能出现在异步函数中
+    2.await promise  await后面只能写promise对象 写其他类型的API是不可以的
+    3.它可以暂停异步函数的执行 等待promise对象返回结果后再向下执行函数
+    async function p1(){
+        return 'p1';
+    }
+     async function p2(){
+        return 'p2';
+     }
+     async function p2(){
+            return 'p2';
+     }
+
+     async function run(){
+        let r1=await p1();
+        let r2=await p2();
+        let r3=await p3();
+        console.log(r1);
+        console.log(r2);
+        console.log(r3);
+     }
+     run();
+
+异步函数在node.js中的应用
+    const fs=require('fs');
+    //改造现有异步函数api 让其返回promise对象 从而支持异步函数语法
+    const promisify=require('util').promisify;
+    //调用promisify方法改造现有异步API 让其返回promise对象
+    const readFile=promisyfy(fs. readFile);
+
+    async function run(){
+        let r1=await readFile('./1.txt','utf8);
+        let r2=await readFile('./2.txt','utf8);
+        let r3=await readFile('./3.txt','utf8);
+
+        console.log(r1);
+        console.log(r2);
+        console.log(r3);
+    }
+run();
+
+Node.js全局对象global
+    在浏览器中全局对象是window，在Node中全局对象是global 在node这个运行环境下是没有dom和bom的
+    Node中全局对象有以下方法，可以再任何地方使用，global可以省略
+    console.log()
+    setTimeout()
+    clearTimeout()
+    setInterval()
+    clearInterval()
+
+服务器端基础概念
+    网站的组成：客户端和服务器端
+    客户端：在浏览器中运行的部分，就是用户看到并与之交互的界面程序
+            使用HTML、CSS、JavaScript构建
+    服务器端：在服务器中运行的部分，负责存储数据和处理应用逻辑
+    IP地址 互联网中设备的唯一标识
+    域名  由于IP地址难以记忆，所以产生了域名的概念，所谓域名就是平时上网所使用的的网址
+        虽然地址栏中输入的是网址，但是最终还是会将域名转化为ip
+        才能访问到指定的网站服务器
+    端口  端口是计算机与外界通讯交流的出口，用来区分服务器电脑中提供的不同服务
+
