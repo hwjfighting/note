@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        //借用父构造函数继承属性
+        //1.父构造函数
+        function Farther (uname, age) {
+            // this 指向父构造函数的对象实例
+            this.uname = name;
+            this.age = age;
+        }
+        Farther.prototype.money = function () {
+            console.log(10000);
+        };
+        //2.子构造函数
+        function Son (uname, age, score) {
+            //this 指向子构造函数的对象实例
+            Farther.call(this,uname,age);
+            this.score = score;
+        }
+        // Son.prototype = Farther.prototype;  //直接赋值会有问题，如果修改了子原型对象，父原型对象也会跟着变化
+        Son.prototype = new Farther();
+        //如果利用对象的形式修改了原型对象 要用constructor 指回原来的原型对象
+        Son.prototype.constructor = Son;
+        Son.prototype.exam = function () {
+            console.log('孩子考试')
+        };
+
+        var son = new Son('刘德华',18);
+        console.log(son);
+        console.log(Farther.prototype);
+        console.log(Son.prototype.constructor);
+    </script>
+</body>
+</html>
