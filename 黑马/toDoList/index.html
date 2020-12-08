@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <section>
+            <form action="" id="form">
+                <label>ToDoList</label>
+                <input type="text" id="title" name="title" placeholder="添加ToDo">
+            </form>
+        </section>
+    </header>
+    <section>
+        <h2>
+            正在进行
+            <span id="toDoCount">0</span>
+        </h2>
+        <ol id="toDoList"></ol>
+        <h2>
+            已经完成
+            <span id="doneCount">0</span>
+        </h2>
+        <ul id="doneList"></ul>
+    </section>
+    <footer>
+        Copyright © 2020 todolist.cn
+        <a href="">clear</a>
+    </footer>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/index.js" ></script>
+</body>
+</html>
