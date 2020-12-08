@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="mydiv">
+    <span>第一个span</span>
+    <span>第二个span</span>
+    <span>第三个span</span>
+    <span>第四个span</span>
+    <p id="myp"></p>
+</div>
+
+
+</body>
+</html>
+<script type="text/javascript">
+    myp=document.getElementById("myp");
+    myp.innerHTML="<span>第五个span</span>";
+    mydiv=document.getElementById("mydiv");
+    var newSpan=document.createElement("span");
+
+    newSpan.innerText="第六个span";
+    mydiv.appendChild( newSpan );
+</script>
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width: 900px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        div img{
+            width: 900px;
+            height: 400px;
+        }
+    </style>
+    <script type="text/javascript">
+
+        function init() {
+            // window.setTimeout(changeImg,2000);只调用一次
+            window.setInterval(nextImg,2000);//每隔两2秒调用一次
+        }
+        var pathArr=["1.jpeg","2.jpeg","3.jpeg", "4.jpeg"];
+
+        var index=0;
+        function nextImg() {
+            myImg=document.getElementById("myImg");
+            myImg.src=pathArr[index];
+            index++;
+            if(index>pathArr.length-1){
+                index=0;
+            }
+        }
+        function preImg() {
+            myImg=document.getElementById("myImg");
+            index--;
+            if(index<0){
+                index=pathArr.length-1;
+            }
+            myImg.src=pathArr[index];
+        }
+
+
+    </script>
+</head>
+<body onload="init()">
+<p align="center">
+    <button onclick="preImg()">上一张</button>
+    <button onclick="nextImg()">下一张</button>
+
+</p>
+<div>
+    <img src="1.jpeg" alt="" id="myImg">
+</div>
+
+</body>
+</html>

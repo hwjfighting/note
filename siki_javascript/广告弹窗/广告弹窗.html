@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #ad{
+            width: 200px;
+            height: 200px;
+            background-color: #E4393C;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            display: none;
+
+        }
+    </style>
+    <script type="text/javascript">
+    function init() {
+        window.setInterval(showAd,2000);//间隔两秒弹出广告
+    }
+    function showAd() {
+        var ad=document.getElementById("ad");
+        ad.style.display="block";
+    }
+    function closeAd() {
+        var ad=document.getElementById("ad");
+        ad.style.display="none";
+    }
+    </script>
+</head>
+<body onload="init()">
+<div id="ad">
+    <button onclick="closeAd()">关闭</button>
+</div>
+
+</body>
+</html>

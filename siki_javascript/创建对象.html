@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    //创建对象1，key value
+    user1={name:"siki",age:80,sex:"男"};
+    console.log(user1.name);
+    console.log(user1.age);
+    console.log(user1.sex);
+    //创建对象2
+    var user2=new Object();
+    user2.name="贺文靖";
+    user2.age=20;
+    user2.sex="女";
+    console.log(user2.name);
+    console.log(user2.age);
+    console.log(user2.sex);
+    */
+    
+    //创建构造函数
+    function user(name,age,sex) {
+       this.name=name;//this代表创建的对象
+       this.age=age;
+       this.sex=sex;
+       this.show=function () {
+           console.log(this.name+" "+this.age+" "+this.sex);
+       }
+        this.setAge=function (age) {
+            this.age=age;
+        }
+        this.setName=function (Name) {
+            this.Name=Name;
+        }
+
+    }
+    user1=new user("siki",20,"男");
+    user2=new user("哈哈哈",21,"女");
+    // console.log(user1.name);
+    // console.log(user1.age);
+    // console.log(user1.sex);
+    // console.log(user2.name);
+    // console.log(user2.age);
+    // console.log(user2.sex);
+
+    for(key in user1){
+        console.log(key+":"+user1[key]);
+    }
+
+
+    
+</script>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        function check() {
+            // var username=document.getElementById("username");
+            // var usernameMsg=document.getElementById("usernameMsg");
+            // console.log(username);
+            // console.log(username.value);
+            // alert("check");
+            var ispass=true;
+            // var  length=username.value.length;
+            // if(length<3||length>6){
+            //     // alert("用户名必须在3-6位!");
+            //     usernameMsg.innerText="用户名必须在3-6位!";
+            //     ispass=false;
+            // }else{
+            //     usernameMsg.innerText=" ";
+            // }
+            // var p=/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+            // var email=document.getElementById("email").value;
+            // var emailMsg=document.getElementById("emailMsg");
+            // if(p.test(email)===false){
+            //     // alert("邮箱格式不正确!");
+            //     emailMsg.innerText="邮箱格式不正确!";
+            //     ispass=false;
+            // }else{
+            //     emailMsg.innerText=" ";
+            // }
+            // var password=document.getElementById("password").value;
+            // var rePassword=document.getElementById("rePassword").value;
+            // var passwordMsg=document.getElementById("passwordMsg");
+            // var rePasswordMsg=document.getElementById("rePasswordMsg");
+            // if(password.length<6 || password.length>10){
+            //     // alert("密码必须在6到10位");
+            //     passwordMsg.innerText="密码必须在6到10位";
+            //     ispass=false;
+            // }else{
+            //     if(password!==rePassword){
+            //         // alert("两次输入密码不一致！");
+            //         rePasswordMsg.innerText="两次输入密码不一致！";
+            //         ispass=false;
+            //     }
+            // }
+            return ispass;
+        }
+
+        //onblur 失去焦点的时候调用
+          function checkUsername(username) {
+              // var username=document.getElementById("username");
+              var usernameMsg=document.getElementById("usernameMsg");
+              var  length=username.value.length;
+              if(length<3||length>6){
+                  // alert("用户名必须在3-6位!");
+                  usernameMsg.innerText="用户名必须在3-6位!";
+                  ispass=false;
+              }else{
+                  usernameMsg.innerText=" ";
+              }
+          }
+
+          function checkEmail(email) {
+              var p=/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+              // var email=document.getElementById("email").value;
+              var emailMsg=document.getElementById("emailMsg");
+              if(p.test(email.value)===false){
+                  // alert("邮箱格式不正确!");
+                  emailMsg.innerText="邮箱格式不正确!";
+                  ispass=false;
+              }else{
+                  emailMsg.innerText=" ";
+              }
+          }
+          function checkPassword() {
+              var password=document.getElementById("password").value;
+              var rePassword=document.getElementById("rePassword").value;
+              var passwordMsg=document.getElementById("passwordMsg");
+              var rePasswordMsg=document.getElementById("rePasswordMsg");
+              if(password.length<6 || password.length>10){
+                  // alert("密码必须在6到10位");
+                  passwordMsg.innerText="密码必须在6到10位";
+                  ispass=false;
+              }else{
+                  if(password.value!==rePassword.value){
+                      // alert("两次输入密码不一致！");
+                      rePasswordMsg.innerText="两次输入密码不一致！";
+                      ispass=false;
+                  }
+              }
+          }
+    </script>
+</head>
+<body>
+<form action="register.jsp" onsubmit="return check()">
+    <table border="1" width="500px" height="500px">
+        <tr>
+            <td colspan="2" align="center">注册</td>
+        </tr>
+        <tr>
+            <td align="right">用户名</td>
+            <td align="left"><input type="text" id="username" onblur="checkUsername(this)">
+                <font color="red" id="usernameMsg" ></font>
+            </td>
+
+        </tr>
+        <tr>
+            <td align="right">邮箱：</td>
+            <td align="left"><input type="email" id="email" onblur="checkEmail(this)">
+                <font color="red" id="emailMsg"></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">密码：</td>
+            <td align="left"><input type="password" id="password" onblur="checkPassword()">
+                <font color="red" id="passwordMsg"></font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">重复密码：</td>
+            <td align="left"><input type="password" id="rePassword" onblur="checkPassword()">
+                <font color="red" id="rePasswordMsg"></font>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="注册"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

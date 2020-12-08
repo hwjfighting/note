@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script type="text/javascript">-->
+        <!--//二维数组保存省市和下面的城市-->
+        <!--var provinceArr=new Array(5);//一维数组里有5个元素，每个元素下面又是一个数组-->
+        <!--provinceArr[0]=new Array("北京市");-->
+        <!--provinceArr[1]=["郑州","开封","洛阳","濮阳"];-->
+        <!--provinceArr[2]=["石家庄","唐山","秦皇岛","保定"];-->
+        <!--provinceArr[3]=["吕梁","晋城","太原","大同"];-->
+        <!--provinceArr[4]=["济南","青岛","淄博","临沂"];-->
+
+
+        <!--function provinceChange(province) {-->
+            <!--var city=document.getElementById("city");-->
+            <!--if(province.value==="-1"){-->
+                <!--city.innerText="<option value=\"-1\"><-请选择-></option>";-->
+                <!--return;//表示方法返回，后续代码不再继续执行-->
+            <!--}-->
+            <!--var cityArr=provinceArr[province.value];//得到某一个城市的数组-->
+            <!--city.options.length=0;//清空city里的元素-->
+           <!--for(var i=0;i<cityArr.length;i++){-->
+               <!--var cityOption=document.createElement("option");//在city下创建子节点-->
+               <!--cityOption.innerText=cityArr[i];//将城市数组加到option中-->
+               <!--city.appendChild(cityOption);-->
+           <!--}-->
+            <!---->
+        <!--}-->
+    <!--</script>-->
+</head>
+<body>
+<!--<select name="" onchange="provinceChange(this)">-->
+    <!--<option value="-1"><-请选择-></option>-->
+    <!--<option value="0">北京市</option>-->
+    <!--<option value="1">河南省</option>-->
+    <!--<option value="2">河北省</option>-->
+    <!--<option value="3">山西省</option>-->
+    <!--<option value="4">山东省</option>-->
+
+<!--</select>-->
+<!--<select id="city">-->
+    <!--<option value="-1"><-请选择-></option>-->
+<!--</select>-->
+
+<body>
+<select id="province" onchange="func1(this)" >
+</select>
+<select id="city"></select>
+</body>
+<script>
+    data = {"广东省":["广州","佛山"],"北京":["海淀","廊坊"], "海南省":["三亚","海口"]};
+    var pro  = document.getElementById("province");
+    var city = document.getElementById("city");
+
+    for (var i in data){
+        var option_pro = document.createElement("option");
+        option_pro.innerHTML=i;
+        // console.log(option_pro);
+        pro.appendChild(option_pro);
+        // console.log(i);
+    }
+
+    function func1(self){
+        //console.log((self.options[self.selectedIndex]).innerHTML);
+        var choice = (self.options[self.selectedIndex]).innerHTML;
+
+        var options = city.children;
+        for (var k=0; k<options.length; k++){
+            city.removeChild(options[k--]);
+        }
+
+        for (var i in data[choice]){
+            var option_city = document.createElement("option");
+            option_city.innerHTML = data[choice][i];
+            city.appendChild(option_city);
+        }
+    }
+</script>
+
+</body>
+</html>
