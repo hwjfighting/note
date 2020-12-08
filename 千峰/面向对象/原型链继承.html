@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function Super() {
+            this.supProp='supper property';
+        }
+        Super.prototype.showSuperProp=function () {
+            console.log(this.supProp);
+        };
+        function Sub() {
+            this.subProp='sub property';
+        }
+        Sub.prototype=new Super();
+        Sub.prototype.showSubProp=function () {
+            console.log(this.subProp);
+        };
+        var sub=new Sub();
+        sub.showSubProp();
+        sub.showSuperProp();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function () {
+            function Person(name,job,born) {
+                this.name=name;
+                this.job=job;
+                this.born=born;
+            }
+            var a=new Person("Lily", "programmer","1999");
+            document.write(a.toSource);//识别不了
+        }
+
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

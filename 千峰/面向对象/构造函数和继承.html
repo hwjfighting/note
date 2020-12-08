@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function Person(name,age) {
+            this.name=name;
+            this.age=age;
+        }
+        function Student(name,age,id) {
+            Person.apply(this,[name,age]);
+            Person.call(this,name,age);
+            this.id=id;
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        function loadPage() {
+            var targetURL=document.getElementById('targetURL').value;
+            document.getElementById('iframe').src=targetURL;
+
+
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <p>请输入要加载的网址</p>
+        <p>
+            <input type="text" id="targetURL">
+            <input type="button" value="提交" onclick="loadPage()">
+        </p>
+    </div>
+    <div>
+        <iframe style="width: 100%;height: 500px" id="iframe"></iframe>
+    </div>
+
+
+</body>
+</html>

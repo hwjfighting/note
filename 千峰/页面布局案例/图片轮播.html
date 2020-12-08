@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{padding:0;margin: 0;}
+        .listBox{width: 500px;height: 375px;margin: 100px;border: 1px solid red;position: relative;}
+        img{width: 500px;height: 375px;}
+        .listBox .listPic{width: 500px;height: 375px;overflow: hidden;}
+        .listBox ul li{list-style: none;float: left;width: 30px;height: 30px;margin: 0 5px;background: rgba(0,0,0,.5);
+        text-align: center;line-height: 30px;}
+        .listBox ul li:hover{background: rgba(0,0,0,.8)}
+        .listBox ul li a{text-decoration: none;color: #fff;}
+        .listBox ul{position: absolute;right: 20px;bottom: 10px;}
+
+    </style>
+</head>
+<body>
+    <div class="listBox">
+        <div class="listPic">
+            <img src="../images/1.jpeg" alt="" id="pic1">
+            <img src="../images/2.jpeg" alt="" id="pic2">
+            <img src="../images/3.jpeg" alt="" id="pic3">
+            <img src="../images/4.jpeg" alt="" id="pic4">
+        </div>
+        <ul>
+            <li><a href="#pic1">1</a></li>
+            <li><a href="#pic2">2</a></li>
+            <li><a href="#pic3">3</a></li>
+            <li><a href="#pic4">4</a></li>
+        </ul>
+
+    </div>
+
+</body>
+</html>

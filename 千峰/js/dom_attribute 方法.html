@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+       /*
+       set/getAttribute()
+       removeAttribute()
+       【注】操作当前节点中某个属性的
+        */
+       window.onload=function () {
+           var oDiv=document.getElementById("div1");
+           // alert(oDiv.title);
+           // alert(oDiv.className);
+           // oDiv.title="xxx";
+           // oDiv.className="box3";
+           // alert(oDiv.getAttribute("title"));
+           oDiv.setAttribute("title","XXX");
+           alert(oDiv.getAttribute("title"));
+           /*
+           上述两种方式的区别：
+           <1>class属性范围区别，点操作是通过className，而set/getAttribute 是通过class
+           <2>set/getAttribute 对用户自定义属性支持
+           <3>removeAttribute
+
+            */
+
+       }
+    </script>
+</head>
+<body>
+    <div id="div1" title="hello" name="world" class="box"></div>
+</body>
+</html>

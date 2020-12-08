@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        //ES5
+        /*var foo=function () {
+            return 1;
+        };
+        console.log(foo());*/
+
+        //ES6
+        /*let foo=()=>1;
+        console.log(foo());*/
+
+      /*  let foo=(a)=>a;
+        console.log(foo(10))*/
+
+      /*let foo=(a)=>{
+          let b=10;
+          return a+b;
+      };
+        console.log(foo(10))*/
+
+     /* var name="window";
+      var obj={
+         "name":"John",
+          "sayHello":function () {
+              console.log(this.name);
+          }
+      };
+      obj.sayHello();//输出John*/
+
+     //this指向定义所在作用域，而不是执行时所在作用域
+     /*var name="window";
+     var obj={
+         "name":"john",
+         "sayHello":()=> {
+            console.log(this.name);
+        }
+     };
+        obj.sayHello();//输出window */
+
+       /* var name="window";
+        var obj={};
+        obj.name="John";
+        obj.sayHello=()=>{
+            console.log(this.name);
+        };
+        obj.sayHello();//输出window  等同于上述表达方式        */
+
+      /* var name="window";
+       var obj={
+           "name":"John",
+           "sayHello":function () {
+               setTimeout(()=>{console.log(this.name)},1000)
+           }
+       };
+        obj.sayHello();//输出John*/
+
+      var name="window";
+      var obj={
+          "name":"John",
+          "sayHello":()=>{
+              console.log(this);
+              setTimeout(()=>{console.log(this.name)},1000)
+          }
+      };
+      obj.sayHello();//输出
+    </script>
+
+</body>
+</html>

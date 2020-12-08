@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{padding: 0;margin: 0;}
+        .listBox{width: 500px;margin: 100px auto;}
+        .listBox .list{position: relative;}
+        .listBox .list a{display: block;height: 35px;background: linear-gradient(#cecece,#8f8f8f);
+            text-decoration: none;line-height: 35px;color: #424242;border-radius: 5px;padding-left:12px;}
+        .listBox .list span{border-top: 5px solid white;border-left: 5px solid rgba(0,0,0,0);border-bottom: 5px solid transparent;
+            border-right: 5px solid transparent;position: absolute;top: 15px;right: 15px;transition: 0.5s;}
+        .listBox .list p{overflow: auto;height: 0;padding-left: 10px;margin: 5px 0;transition: 0.5s}
+        .listBox .list:target p{height: 100px;}
+        .listBox .list a:hover{background: linear-gradient(#6bb2ff,#2288dd);color: white;}
+        .listBox .list:target a{background: linear-gradient(#6bb2ff,#2288dd);}
+        .listBox .list:target span{transform: rotate(-90deg);}
+    </style>
+</head>
+<body>
+ <div class="listBox">
+     <div class="list" id="listOne">
+         <a href="#listOne">brand</a>
+         <span></span>
+         <p>
+             first-child{}, last-child{}, nth-child(nth-child(2){}), nth-last-child(nth-last-child(2){}),
+             nth-child(odd){}(所有正数下第奇数个子元素)，nth-child(even){}(所有正数下第偶数个子元素)，
+             nth-last-child(odd){}(所有倒数下第奇数个子元素)，nth-last-child(even){}(所有倒数下第偶数个子元素)
+             以上四个是先数再匹配类型
+             nth-of-type(odd){},nth-of-type(even){},nth-last-of-type(odd){},nth-last-of-type(even){},
+             以上四个是先匹配类型 再数
+             nth-child(an+b){},nth-last-child(an+b)
+             以上两个是循环使用样式，a表示循环中共包含几次样式，b表示样式在循环中所处的位置
+             only-child(只有一个元素的时候使用)
+             first-child{}, last-child{}, nth-child(nth-child(2){}), nth-last-child(nth-last-child(2){}),
+         </p>
+     </div>
+     <div class="list" id="listTwo">
+         <a href="#listTwo">brand</a>
+         <span></span>
+         <p>
+             first-child{}, last-child{}, nth-child(nth-child(2){}), nth-last-child(nth-last-child(2){}),
+             nth-child(odd){}(所有正数下第奇数个子元素)，nth-child(even){}(所有正数下第偶数个子元素)，
+             nth-last-child(odd){}(所有倒数下第奇数个子元素)，nth-last-child(even){}(所有倒数下第偶数个子元素)
+             以上四个是先数再匹配类型
+             nth-of-type(odd){},nth-of-type(even){},nth-last-of-type(odd){},nth-last-of-type(even){},
+             以上四个是先匹配类型 再数
+             nth-child(an+b){},nth-last-child(an+b)
+             以上两个是循环使用样式，a表示循环中共包含几次样式，b表示样式在循环中所处的位置
+             only-child(只有一个元素的时候使用)
+             first-child{}, last-child{}, nth-child(nth-child(2){}), nth-last-child(nth-last-child(2){}),
+         </p>
+
+     </div>
+     <div class="list" id="listThree">
+         <a href="#listThree">brand</a>
+         <span></span>
+         <p>
+             first-child{}, last-child{}, nth-child(nth-child(2){}), nth-last-child(nth-last-child(2){}),
+             nth-child(odd){}(所有正数下第奇数个子元素)，nth-child(even){}(所有正数下第偶数个子元素)，
+             nth-last-child(odd){}(所有倒数下第奇数个子元素)，nth-last-child(even){}(所有倒数下第偶数个子元素)
+             以上四个是先数再匹配类型
+             nth-of-type(odd){},nth-of-type(even){},nth-last-of-type(odd){},nth-last-of-type(even){},
+             以上四个是先匹配类型 再数
+             nth-child(an+b){},nth-last-child(an+b)
+             以上两个是循环使用样式，a表示循环中共包含几次样式，b表示样式在循环中所处的位置
+             only-child(只有一个元素的时候使用)
+             first-child{}, last-child{}, nth-child(nth-child(2){}), nth-last-child(nth-last-child(2){}),
+         </p>
+
+     </div>
+
+
+ </div>
+
+</body>
+</html>

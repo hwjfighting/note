@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        /*
+        ?id=5&search=ok
+        获取url中的search，通过传入对应key，返回key对应的value
+        例子：传入id返回5
+         */
+        function getValue(search,key) {
+            var start=search.indexOf(key);
+            if(start==-1){
+                return;
+            }else{
+                var end=search.indexOf("&",start);
+                if(end==-1){
+                    end=search.length;
+                }
+            }
+            var str=search.substring(start,end);
+            alert(str);
+        }
+        var search="?id=5&search=ok";
+        getValue(search,"search");
+    </script>
+</head>
+<body>
+    
+
+</body>
+</html>

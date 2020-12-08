@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        ECMA5 javascript
+        ECMA6
+        严格模式
+        【注】即这种严格模式下，浏览器会对JS的要求更加苛刻
+        “use strict”
+        写在哪个作用域下，这个作用域下的代码都遵从严格模式
+        【注】建议不要在全局范围开头增加“use strict”;建议在作用域内使用
+         */
+        function m1() {
+            "use strict";
+            // max=10; //错误的声明
+            var max=10;//正确的声明方法
+        }
+        m1();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

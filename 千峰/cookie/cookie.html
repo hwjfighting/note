@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        cookie  是指缓存在本地客户端的数据
+                基本操作包括增、删、改、查四个部分
+         */
+        //查询cookie
+        console.log(document.cookie);
+        //设置cookie
+        // document.cookie="username=honny";
+        // var oDate=new Date();
+        // oDate.setDate(oDate.getDate()+3);
+        // document.cookie="username=honny;expires="+oDate;
+        //修改cookie
+        // document.cookie="username=honny";
+        // document.cookie="username=honny1";
+        //删除cookie
+        var oDate=new Date();
+        oDate.setDate(oDate.getDate()-1);
+        document.cookie="username=honny;expires="+oDate;
+    </script>
+</head>
+<body>
+
+</body>
+</html>

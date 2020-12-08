@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        @media screen and (min-width: 1200px){
+            /*body{background: #f00;}*/
+            html{font-size: 48px;}
+        }
+        @media screen and (min-width: 800px) and (max-width: 1200px){
+            /*body{background: #0f0;}*/
+            html{font-size: 36px;}
+        }
+        @media screen and (max-width: 800px) {
+            /*body{background: #00f;}*/
+            html{font-size: 24px;}
+        }
+        /*当遇到分辨率不同的时候会去寻找不同的根据font—size去修改它的高度宽度*/
+        input{width: 3rem;height: 2rem;background: #00f;color: #fff;font-size: 1rem;}
+
+    </style>
+</head>
+<body>
+    <input type="submit">
+</body>
+</html>

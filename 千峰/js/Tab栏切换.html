@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .tab{
+            width: 800px;
+            margin: 100px auto;
+        }
+        .tab_list{
+            height: 39px;
+            background-color: #eee;
+            border: 1px solid #666666;
+        }
+        .tab_list ul li{
+            float: left;
+            height: 39px;
+            line-height: 39px;
+            padding: 0 20px;
+            text-align: center;
+            cursor: pointer;
+            list-style: none;
+        }
+        .tab_list .current{
+            background-color: red;
+            color: white;
+        }
+        .item{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li class="current">商品介绍</li>
+                <li>规格介绍</li>
+                <li>售后保障</li>
+                <li>商品评价(50000)</li>
+                <li>手机社区</li>
+            </ul>
+        </div>
+        <div class="tab_con">
+            <div class="item" style="display: block">
+                商品介绍模块
+            </div>
+            <div class="item">
+                规格介绍模块
+            </div>
+            <div class="item">
+                售后保障模块
+            </div>
+            <div class="item">
+                商品评价模块
+            </div>
+            <div class="item">
+                手机社区模块
+            </div>
+        </div>
+    </div>
+    <script>
+        /*核心思路：给上面的tab_list里面的所有小li添加自定义属性，属性值从0开始编号
+        * 当我们点击tab_list里面的某个小li，让tab_con里面对应序号的内容显示，其余隐藏（排他思想）
+        * */
+        var lis=document.querySelector(".tab_list").querySelectorAll("li");
+        var item=document.querySelectorAll(".item");
+        console.log(lis);
+        for(var i=0;i<lis.length;i++){
+            lis[i].setAttribute('index',i);
+            lis[i].onclick=function () {
+                for(var i=0;i<lis.length;i++){
+                    lis[i].className=" ";
+                }
+                this.className="current";
+                var index=this.getAttribute('index');
+                for(var i=0;i<item.length;i++){
+                    item[i].style.display="none";
+                }
+                item[index].style.display='block';
+            }
+        }
+    </script>
+</body>
+</html>

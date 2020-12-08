@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var set=new Set([1,2,3,4,2,2]);
+        console.log(set);
+        //扩展运算符
+        var arr=[...set];
+        console.log(arr);
+        for(var i of set){
+            console.log(i);
+        }
+        /*for(var i of arr){
+            console.log(i);
+        }*/
+        set.add(5);
+        console.log(set.size);
+        console.log(set);
+        console.log(set.has(0));
+        set.delete(5);
+        console.log(set);
+        /*set.clear();
+        console.log(set);*/
+        for(let item of set.keys()){
+            console.log(item);
+        }
+        for(let item of set.values()){
+            console.log(item);
+        }
+        for(let [key,value] of set.entries()){
+            console.log(key,value);
+        }
+        set.forEach((key,value)=>{console.log(key,value*2)});
+    </script>
+
+</body>
+</html>

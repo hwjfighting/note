@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{padding: 0;margin: 0;}
+        .listBox{width: 620px;margin: 50px auto; }
+        .listBox h3{text-align: center;color: #a53333;font-size: 17px;border-bottom: 1px dashed #ccc;
+        font-weight: 300;padding-bottom: 5px;}
+        .pic img{width: 100px;height: 75px;border: 1px solid #ccc;padding: 2px;background: #fff;display: block;}
+        .pic{border: 1px solid #bbb;padding: 5px;width: 106px;background: #eee;float: left;margin: 3px;position: relative;}
+        .list{margin-top: 10px;}
+        .pic img:nth-of-type(2){width: 200px;height: 150px;z-index: 5;position: absolute;top:-20px;left: -40px;display: none;}
+        .pic:hover img:nth-of-type(2){display: block;border: 1px solid #000;}
+        .listBox p{font-size: 12px;text-align: center;color: #777;margin-top: 10px}
+        .clear{clear: both;}
+        /*
+            图片默认会向下撑大3像素，解决方法：display:block;
+            解决高度塌陷的方法: 1.给父元素添加overflow:hidden;缺点：不适合和定位一起用
+		                       2.给所有浮动元素的后面添加一个空元素，并添加声明clear：both
+         */
+
+    </style>
+</head>
+<body>
+    <div class="listBox">
+        <h3>HoverBox Image Gallery</h3>
+        <div class="list">
+            <div class="pic">
+                <img src="../images/1.jpeg" alt="">
+                <img src="../images/1.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/2.jpeg" alt="">
+                <img src="../images/2.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/3.jpeg" alt="">
+                <img src="../images/3.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/4.jpeg" alt="">
+                <img src="../images/4.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/1.jpeg" alt="">
+                <img src="../images/1.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/2.jpeg" alt="">
+                <img src="../images/2.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/3.jpeg" alt="">
+                <img src="../images/3.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/4.jpeg" alt="">
+                <img src="../images/4.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/1.jpeg" alt="">
+                <img src="../images/1.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/2.jpeg" alt="">
+                <img src="../images/2.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/3.jpeg" alt="">
+                <img src="../images/3.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/4.jpeg" alt="">
+                <img src="../images/4.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/1.jpeg" alt="">
+                <img src="../images/1.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/2.jpeg" alt="">
+                <img src="../images/2.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/3.jpeg" alt="">
+                <img src="../images/3.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/4.jpeg" alt="">
+                <img src="../images/4.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/1.jpeg" alt="">
+                <img src="../images/1.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/2.jpeg" alt="">
+                <img src="../images/2.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/3.jpeg" alt="">
+                <img src="../images/3.jpeg" alt="">
+            </div>
+            <div class="pic">
+                <img src="../images/4.jpeg" alt="">
+                <img src="../images/4.jpeg" alt="">
+            </div>
+            <div class="clear"></div>
+        </div>
+        <p>HoverBox Image Gallery|HoverBox Image Gallery|HoverBox Image Gallery</p>
+    </div>
+
+</body>
+</html>

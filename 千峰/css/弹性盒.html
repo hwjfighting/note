@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{margin: 0;padding: 0;}
+        .type{overflow: hidden;margin: 30px}
+        .text{width: 200px;float: left}
+        #box1{border: 1px solid blue;display:flex;}
+        #box2{border: 1px solid blue;display:flex;}
+        section{width: 50px;height: 50px;border: 1px solid #f00}
+    </style>
+    <script type="text/javascript">
+        window.onload=function () {
+            var p1=document.getElementById("put1");
+            var p2=document.getElementById("put2");
+            var box1=document.getElementById("box1");
+            var box2=document.getElementById("box2");
+            var t2_p1=document.getElementById("t2_p1");
+            var t2_p2=document.getElementById("t2_p2");
+            var t2_p3=document.getElementById("t2_p3");
+            var t2_p4=document.getElementById("t2_p4");
+            p1.onclick=function () {
+                box1.style="display:flex";
+            }
+            p2.onclick=function () {
+                box1.style="display:inline-flex;";
+            }
+            t2_p1
+        }
+    </script>
+</head>
+<body>
+<div class="type">
+    <div class="text">
+        <p>display</p>
+        <p><input type="radio" name="tp1" id="put1">flex</p>
+        <p><input type="radio" name="tp1" id="put2">inline-flex</p>
+    </div>
+    <div id="box1">
+        <section>1</section>
+        <section>2</section>
+        <section>3</section>
+        <section>4</section>
+    </div>
+</div>
+<div class="type">
+    <div class="text">
+        <p>flex-direction</p>
+        <p><input type="radio" name="tp1" id="t2_p1">row</p>
+        <p><input type="radio" name="tp1" id="t2_p2">row-reverse</p>
+        <p><input type="radio" name="tp1" id="t2_p3">column</p>
+        <p><input type="radio" name="tp1" id="t2_p4">column-reverse</p>
+    </div>
+    <div id="box2">
+        <section>1</section>
+        <section>2</section>
+        <section>3</section>
+        <section>4</section>
+    </div>
+</div>
+
+
+</body>
+</html>
+

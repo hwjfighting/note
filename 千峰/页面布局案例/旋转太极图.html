@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{padding: 0;margin: 0;}
+        .circleBox{width: 300px;height: 300px;margin: 100px;position: relative;
+        animation: move 2s infinite linear;}
+        .blackCircle{width: 300px;height: 300px;background: #000;border-radius: 50%;position: absolute;}
+        .whiteCircle{width: 150px;height: 300px;background: #fff;position: absolute;border-top-right-radius:150px;
+        border-bottom-right-radius: 150px;left:150px;}
+        .bbCircle{width: 150px;height: 150px;background: #000;position: absolute;border-radius: 50%;left: 75px;}
+        .wwCircle{width: 150px;height: 150px;background: #fff;position: absolute;border-radius: 50%;left: 75px;top: 150px;}
+        .wCircle{width: 20px;height: 20px;background: #fff;position: absolute;border-radius: 50%;left: 140px;top: 65px;}
+        .bCircle{width: 20px;height: 20px;background: #000;position: absolute;border-radius: 50%;left: 140px;top:215px;}
+        @keyframes move {
+            from{transform: rotate(0deg);}
+            to{transform: rotate(360deg);}
+        }
+    </style>
+</head>
+<body>
+    <div class="circleBox">
+        <div class="blackCircle"></div>
+        <div class="whiteCircle"></div>
+        <div class="bbCircle"></div>
+        <div class="wwCircle"></div>
+        <div class="wCircle"></div>
+        <div class="bCircle"></div>
+
+    </div>
+</body>
+</html>

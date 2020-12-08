@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #outer{
+            width: 200px;
+            height: 200px;
+            background-color: black;
+        }
+        #inner{
+            width: 100px;
+            height: 100px;
+            background-color: #7ef5ff;
+        }
+    </style>
+    <script type="text/javascript">
+       window.onload=function () {
+           var outer=document.getElementById("outer");
+           var inner=document.getElementById("inner");
+           outer.onclick=function () {
+               console.log("outer");
+           }
+           inner.onclick=function (e) {
+               var evt=e||event;
+               console.log("inner");
+               //阻止冒泡
+                evt.cancelBubble=true;
+               // evt.stopPropagation();
+            }
+           // inner.onclick=function () {
+           //     console.log("inner");
+           // }
+        }
+    </script>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner">
+
+        </div>
+    </div>
+
+</body>
+</html>

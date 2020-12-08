@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        //1.字面量的方式
+        // var reg=/abc/;
+        //2.构造函数
+         var reg=new RegExp("ac");
+        /*
+        test 方法是RegExp的方法
+             用来检测字符串中是否含有符合规则的子串，有，返回true，否则返回false
+         */
+
+        var str="ac";
+        var flag=reg.test(str);
+        console.log(flag);
+        /*
+        修饰符 g i
+               g表示全局匹配
+               i表示忽略大小写
+         */
+        var reg=/abc/g;
+        var str="abcabc";
+        //match方法 字符串方法
+        console.log(str.match(reg));
+
+        var reg=/abc/gi;
+        var str="AbcABcABC";
+        console.log(str.match(reg));
+
+        //search方法 用来检测符合规则的字串的位置，只返回第一个匹配的位置
+        var reg=/abc/;
+        var str="12345abc";
+        console.log(str.search(reg));
+
+        //split
+        var reg=/good/;
+        var str="good good study";
+        console.log(str.split(reg));
+
+        //replace
+        var reg=/tmd/gi;
+        var str="abc tmd Abc TMd";
+        console.log(str.replace(reg,"*"));
+
+        /*
+        exec方法 RegExp的方法
+                 将匹配成功的内容放到数组中，如果没有匹配成功，返回null
+         */
+        var reg=/good/g;
+        var str="good good study";
+        console.log(reg.exec(str));
+        console.log(reg.exec(str));
+        console.log(reg.exec(str));
+console.log("=================================================");
+
+       /* if(true){
+            var a=1;
+            let b=5;
+            console.log(a);
+            console.log(b);
+        }
+        console.log(a);
+        console.log(b);*/
+
+       var temp=123;
+       if(true){
+           temp='abc';
+          let temp;
+       }
+       console.log(temp);
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

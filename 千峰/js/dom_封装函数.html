@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        通过封装函数，拥有几种获取元素的功能
+        【注】CSS选择器
+        #id 通过id获取元素节点
+        .class 通过class获取元素节点
+        tagName 通过tagName获取元素节点
+        name=xxx通过name获取元素节点
+         */
+        function $(vArg) {
+            //<1>对参数进行区分
+            switch (vArg[0]) {
+                case "#":
+                    return document.getElementById(vArg.substring(1));
+                case ".":
+                    return elementByClassName(document,vArg.substring(1));
+                default:
+                    //对参数的前五个字符进行判断
+                    var str=vArg.substring(0,5);
+                    if(str==="name="){
+                        return document.getElementsByName(vArg.substring(5));
+                    }else{
+                        return document.getElementsByTagName(vArg)
+                    }
+            }
+        }
+
+        function elementByClassName(parent,classStr) {
+            //<1>找到parent下所有的元素节点
+            var nodes=parent.getElementsByTagName("*");
+            var result=[];//用记录符合条件的元素节点
+            for(var i=0;i<nodes.length;i++){
+                //<2>如果符合条件，添加到数组中
+                if(nodes[i].className===classStr){
+                    result.push(nodes[i]);
+                }
+            }
+            return result;
+        }
+        window.onload=function () {
+            // alert($("#div1").innerText) ;
+            // alert($(".box").length)
+            // alert($(".box")[1].innerHTML);
+            // alert($("div").length);
+            // alert($("name=hello")[0].innerHTML);
+            alert($("name=hello").length);
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">111111</div>
+    <div class="box">22222222</div>
+    <div class="box">3333333</div>
+    <div name="hello">444444</div>
+</body>
+</html>

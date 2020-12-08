@@ -1,0 +1,645 @@
+promot(info) //输入框
+转化为字符串的方法：
+    toString   num.toString()
+    String String(num)
+    加号拼接字符串 num+"我是字符串"
+
+解释型语言和编译型语言
+    翻译器翻译的方式有两种：一个是翻译，另外一个是 解释，两种方式之间的区别在于翻译的时间点不同
+    编译器是在代码执行之前编译，生成中间代码文件
+    解释器是在运行时进行及时解释，并立即执行（当编译器以解释方式运行的时候，也称之为解释器）
+
+浮点数算数运算会有问题，因为要将小数转换为二进制，二进制在进行算数运算 就会产生误差
+
+冒泡
+    var arr=[2,5,3,1,4,6];
+    for(var i=0;i<arr.length;i++){//外层循环管趟数
+        for(var j=0;j<arr.length-i-1;j++){//里面的循环管每一趟的交换次数
+            //内部交换2个变量的值，前一个和后一个数组元素相比较
+            if(arr[j]<arr[j+1]){
+                var temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+            }
+        }
+    }
+
+return 后面的代码不会被执行
+return 只能返回一个值，如果用逗号隔开多个值，以最后一个为准
+想输出多个值的话可以利用对象 数组
+函数都是有返回值的
+    如果有return，则返回return后面的值
+    如果没有return，则返回undefined
+
+arguments的使用
+    当不确定有多少个参数传递的时候，可以用arguments来获取。在JavaScript中，
+    arguments实际上当前函数的一个内置对象，所有函数都内置了一个arguments对象，arguments
+    对象中存储了传递的所有实参
+
+    arguments展示形式是一个伪数组，因此可以进行遍历，伪数组有以下特点：
+        具有length属性
+        按索引方式存储数据
+        不具有数组的push，pop等方法
+
+函数封装（冒泡排序）
+function sort(arr){
+     for(var i=0;i<arr.length;i++){//外层循环管趟数
+            for(var j=0;j<arr.length-i-1;j++){//里面的循环管每一趟的交换次数
+                //内部交换2个变量的值，前一个和后一个数组元素相比较
+                if(arr[j]<arr[j+1]){
+                    var temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+            }
+        }
+}
+
+函数声明方式：1.命名函数 2.函数表达式（匿名函数）
+
+全局作用域，局部作用域，js是在es6之后新增的块级作用域
+如果在函数内部 没有声明直接赋值的变量也属于全局变量
+
+作用域链：根据在内部函数可以访问外部函数变量的这种机制，用链式查找决定哪些数据能被函数访问，就称为作用域链
+（站在目标出发，一层一层往外找）
+
+
+JS预解析
+    解析器运行js分为哪两步？
+    变量提升的步骤和运行过程
+    函数提升的步骤和运行过程
+
+JS引擎运行js分为两步：预解析 代码执行
+    1.预解析会把js里面的var 和function 提升到当前作用域的最前面
+    2.代码执行 按照代码书写的顺序从上往下执行
+预解析分为变量预解析（变量提升）和函数预解析（函数提升）
+    1.变量提升 就是把所有的变量提升到当前的作用域最前面 不提升赋值操作
+    2.函数提升 就是把所有的函数声明提升到当前作用域的最前面 不调用函数
+
+对象 （特指 是一个具体的事物）
+   1.创建对象
+        1.里面的属性或者方法我们采取键值对的形式 键 属性名：值 属性值
+        2.多个属性或者方法中间用逗号隔开的
+        3.方法冒号后面跟的是一个匿名函数
+   2.使用对象
+       1.调用对象的属性 我们采取 对象名.属性名  我们理解为 的
+       2.调用属性还有一种方法 对象名['属性名']
+
+变量、属性、函数、方法的区别
+1.变量和属性的相同点：他们都是用来存储数据的
+  不同：变量 单独声明并赋值 使用的时候直接写变量名 单独存在
+        属性 在对象里面的不需要声明 使用的时候必须是 对象.属性
+2.函数和方法的相同点： 都是实现某种功能 做某件事
+  不同：函数是单独声明 并且调用的 函数名() 单独存在
+        方法 在对象里面 调用的时候 对象.方法
+
+构造函数（明星 泛指的某一个大类）
+    因为我们一次创建一个对象，里面很多属性和方法 是大量相同的 我们只能复制
+    因为我们可以利用函数的方法 重复这些相同的代码 我们就把这个函数称为 构造函数
+    又因为这个函数不一样，里面封装的不是普通代码，而是对象
+    构造函数 就是我们对象里面一些相同的属性和方法抽象出来封装到函数里面
+    function Star(uname,age,sex){
+        this.name=uname;
+        this.age=age;
+        this.sex=sex;
+    }
+    构造函数不需要return 就可以返回结果
+
+构造函数创建对象的过程我们也称为对象的实例化
+
+new 关键字执行过程
+    1.new 构造函数可以在内存中创建了一个空的对象
+    2.this 就会指向刚才创建的空对象
+    3.执行构造函数里面的代码 给这个空对象添加属性和方法
+    4.返回这个对象
+
+JS的对象：自定义对象、内置对象、浏览器对象
+内置对象
+Math、Date、Array、String
+
+Math.PI、Math.floor()//向下取整、Math.ceil()//向上取整、Math.round()//四舍五入 就近取整 但是.5特殊 它往大了取
+Math.abs()//绝对值、Math.max()/Math.min()//求最大值和最小值
+时间戳转换时分秒 +new Date()//当前总毫秒数  +new Date(time) //用户输入时间总毫秒数
+总秒数=毫秒数/1000
+d=parseInt(总秒数/60/60/24);//天数
+h=parseInt(总秒数/60/60%24);//小时
+m=parseInt(总秒数/60%60);//分数
+s=parseInt(总秒数%60);//秒数
+
+数组排序（冒泡排序sort）
+var arr=[13,4,77,1,7];
+arr1.sort(function(a,b){
+    return a-b;//升序的顺序排列
+    return b-a;//降序的顺序排列
+})
+
+基本包装类型：把简单数据类型 包装成为了 复杂数据类型
+    var str='andy';
+    1.把简单数据类型包装为复杂数据类型
+    var temp=new String('andy');
+    2.把临时变量的值给str
+    str=temp;
+    3.销毁这个临时变量
+    temp=null;
+
+字符串的不可变
+    指的是里面的值不可变，虽然看上去可以改变内容，但其实是地址变了，内存中新开辟了一个内存空间
+字符串所有的方法，都不会修改字符串本身（字符串是不可变的），操作完成会返回一个新的字符串
+
+简单数据类型（值类型/基本数据类型）：在存储是变量中存储的是值本身，因此叫做值类型
+        string,number,boolean,undefined,null(返回的是一个空的对象)
+        如果有个变量我们以后打算存储为对象，暂时没想好放啥，这个时候就给null
+引用类型（复杂数据类型）：在存储时变量中存储的仅仅第地址（引用），因此叫做引用数据类型
+通过new关键字创建的对象（系统对象，自定义对象），如Object、Array、Date等
+
+堆和栈
+    1.栈（操作系统）：由操作系统自动分配释放内存函数的参数值，局部变量的值等。其操作方式
+        类似于数据结构中的栈
+    简单数据类型存放到栈里面
+    2.堆（操作系统）：存储复杂数据类型，一般由程序员分配释放，若程序员不释放，由垃圾回收机制回收。
+    复杂数据类型存放到堆里面
+    引用类型变量（栈空间）里存放的是地址，真正的对象实例存放到堆空间中
+
+简单类型传参
+    函数的形参也可以看做是一个变量，当我们把一个值类型变量作为参数传给函数的形参时，其实是把变量在栈空间里的
+    值复制了一份给形参，那么在方法内部对形参做任何修改，都不会影响到的外部变量
+复杂数据类型传参
+    函数的形参也可以看做是一个变量，当我们把引用变量传给形参时，其实是把变量在栈空间里
+    保存的堆地址复制给了形参，形参和实参其实保存的是同一个堆地址，所以操作的是同一个对象
+
+JavasScript=ECMAScript(JS语法)+DOM(页面文档对象模型)+BOM(浏览器对象模型)
+Web APIs阶段 主要学习DOM和BOM 主要学习页面交互功能
+Web API是浏览器提供的一套操作浏览器功能和页面元素的API（DOM和BOM）
+
+文档：一个页面
+元素：页面中的所有标签
+节点：网页中所有内容（标签、属性、文本、注释）换行是文本节点
+    如果节点是元素节点，则 nodeType 属性将返回 1。
+    如果节点是属性节点，则 nodeType 属性将返回 2。
+    如果节点是文本节点，则 nodeType 属性将返回 3。
+
+获取元素
+事件基础（步骤：1.获取事件源 2.绑定事件 3.添加事件处理程序）
+操作元素
+节点操作
+
+innerText和innerHTML的区别
+    1.innerText不识别html标签 非标准 去除空格和换行
+    2.innerHTML识别html标签 w3c标准 保留空格和换行
+    这两个属性是可读写的 可以获取元素里面的内容
+
+排他思想
+    如果有同一组元素，我们想要某一个元素实现某种样式，需要用到循环的排他思想算法
+    1.所有元素全部清除样式
+    2.给当前元素设置样式
+    ·注意顺序不能颠倒
+
+element.属性 和 element.getAttribute('属性')的区别
+   element.属性 获取内置属性值（元素本身自带的属性）
+   element.getAttribute('属性');主要获得自定义的属性
+
+
+设置H5自定义属性
+    H5规定自定义属性data-开头做为属性名并且赋值
+    比如<div data-index="1"></div>
+    或者使用JS设置
+    element.setAttribute('data-index',2)
+获取H5自定义属性
+    1.兼容性获取 element.getAttribute('data-index');
+    2.H5新增element.dataset.index或者element.dataset['index'] ie11才开始支持
+    (dataset是一个集合里面存放了所有以data开头的自定义属性)
+    （如果自定义属性里面有多个-链接的单词，我们获取的时候采取 驼峰命名法）
+
+节点操作
+    parentNode属性可返回节点的父节点，注意是最近的一个父节点
+    如果指定的节点没有父节点则返回null
+    1.子节点 childNodes所有的子节点 包含 元素节点 文本节点
+    2.children 获取所有的子元素节点 也是我们实际开发常用的
+
+    firstChild/lastChild 第一个/最后一个子节点 不管是文本节点还是元素节点
+    firstElementChild/lastElementChild 返回第一个/最后一个子元素节点 ie9以上才支持
+    实际开发中 既没有兼容性问题又返回第一个/最后一个子元素 （parentNode.children[0]/parentNode.children.length-1）
+
+    nextSibling/previousSiblings 返回下一个/上一个兄弟节点 包含元素节点 或者文本节点 如果找不到就返回null
+    nextElementSibling/previousElementSiblings  返回第一个/最后一个兄弟节点 ie9以上才支持
+    封装一个兼容性函数
+        function getNextElementSibling(element){
+            var el=element;
+            while(el=el.nextSibling){
+                if(el.nodeType===1){
+                    return el;
+                }
+            }
+            return null;
+        }
+
+    创建节点元素节点  document.createElement('tagName')
+    添加节点：node.appendChild(child) 将一个节点添加到指定父节点的子节点列表末尾，
+        类似css里面的after伪元素
+              node.insertBefore(child,指定元素);
+              eg:   var li=document.createElement('li');
+                    ul.insertBefore(li,ul.children[0])
+    移除节点：node.removeChild(child)
+
+    阻止链接跳转需要添加javascript:void(0);或者javascript:;
+
+    复制节点（克隆节点）：node.cloneNode() 方法返回调用该方法的节点的一个副本
+    如果括号参数为空或者为false，则呈现浅拷贝，即只克隆复制节点本身，不克隆里面的子节点
+    如果括号参数为true，则是深度拷贝，会复制节点本身以及里面所有的子节点
+
+三种动态创建元素区别（document.write()、element.innerHTML、document.createElement()）
+    1.document.write是直接将内容写入页面的内容流，但是当页面文档加载完毕，再调用这句话会导致页面全部重绘
+    2.innerHTML是将内容写入某个DOM节点，不会导致页面全部重绘
+    3.innerHTML创建多个元素效率更高（不要拼接字符串，采取数组形式拼接）结构稍微复杂
+    4.createElement() 创建多个元素效率稍低一点点，但是结构更清晰
+    总结：不同浏览器下，innerHTML效率要比createElement高
+
+dom操作：主要针对元素的操作，主要有创建、增、删、改、查、属性操作、事件操作
+    创建：document.write()、element.innerHTML、document.createElement()
+    增：appendChild、insertBefore
+    删：removeChild
+    改：主要修改dom的元素属性、dom元素的内容、属性、表单的值等
+        1.修改元素属性：src、href、title等
+        2.修改普通元素内容：innerHTML，innerText
+        3.修改表单元素：value、type、disabled等
+        4.修改元素样式：style、className
+    查：主要查询dom的元素
+        1.DOM操作的API方法：getElementById，getElementByTagName 古老用法不推荐
+        2.H5提供的新方法：querySelector、querySelectorAll 提倡
+        3.利用节点操作获取元素：父（parentNode）、子（children）、兄（previousElementSibling、nextElementSibling）提倡
+    属性操作：主要针对自定义属性
+        setAttribute:设置dom的属性值
+        getAttribute：得到dom的属性值
+        removeAttribute 移除属性
+    事件操作
+        给元素注册事件、采取、事件源事件类型=事件处理程序
+        onclick、onmouseover、onmouseout、onfocus、onblur、onmousemove、onmouseup、onmousedown
+
+注册事件（绑定事件）
+    给元素添加事件，有两种方式：传统方式和方法监听注册方式
+    传统注册方式 ：利用on开头的事件
+                   特点：注册事件的唯一性
+                   同一个元素同一个事件只能设置一个处理函数，最后
+                   注册的处理函数将会覆盖前面注册的处理函数
+                   btn.onclick=function(){}
+
+    方法监听注册方式：addEventListener() 它是一个方法
+                     IE9之前的IE不支持此方法，可使用attachEvent() 代替
+                     eventTarget.addEventListener(type,listener[,useCapture])
+                     eventTarget.addEventListener()方法将指定的监听器注册到eventTarget（目标对象）上，
+                     当该对象触发指定的事件时，就会执行事件处理函数。
+                     该方法接收三个参数：
+                     type：事件类型字符串，比如click，mouseover，注意这里不要带on
+                     listener：事件处理函数，事件发生时，会调用监听函数
+                     useCapture：可选参数，是一个布尔值，默认是false
+                     同一个元素 同一个事件可以添加多个侦听器（时间处理程序）
+                     btn.addEventListener('click',function(){})
+
+                     attachEvent事件监听方式
+                     eventTarget.attachEvent(eventNameWithOn,callback)
+                     eventTarget.attachEvent()方法将指定的监听器注册到eventTarget（目标对象）上，
+                     当该对象触发指定的事件时，指定的回调函数就会被执行。
+                     eventNameWithOn：事件类型字符串，比如onclick、onmouseover、这里要带on
+                     callback：事件处理函数，当目标触发事件时回调函数被调用
+删除事件（解绑事件）
+    1.传统注册方式
+        eventTarget.onclick=null;
+    2.方法监听注册方式
+        eventTarget.removeEventListener(type,listener[,useCapture])
+        eventTarget.detachEvent(eventNameWithOn,callback)
+
+DOM事件流（红皮书13章）
+    注意：1.JS代码中只能执行捕获或者冒泡其中的一个阶段
+          2.onclick和attachEvent只能得到冒泡阶段
+          3.如果addEventListener第三个参数是true 那么则处于捕获阶段
+          如果addEventListener第三个参数是false 或者省略 那么则处于冒泡阶段
+          4.实际开发中我们很少使用事件捕获，我们更关注事件冒泡
+          5.有些事件是没有冒泡的，比如 onblur、onfocus、onmouseenter、onmouseleave
+          6.事件冒泡有时候会带来麻烦，有时候又会帮助巧妙的做某些事件
+事件对象
+    1.event就是一个事件对象 写到我们侦听函数的小括号里面 当形参来看
+    2.事件对象只有有了事件才会存在，它是系统给我们自动创建的，不需要我们传递参数
+    3.事件对象 是 我们事件的一系列相关数据的集合 跟事件相关的 比如鼠标点击里面就包含了
+      鼠标的相关信息，，鼠标坐标，如果是键盘事件里面就包含了键盘事件的信息 比如 判断用户按下那个键
+    4.这个事件对象我们可以自己命名 比如event、evt、e
+    5.事件对象也有兼容性问题，比如ie678 通过 window.event 兼容性的写法：e=e||window.event
+
+    常见事件对象的属性和方法：
+      e.target返回的是触发事件的对象（元素），this返回的是绑定事件的对象（元素）
+      e.srcElement 返回触发事件的对象  ie678使用
+      e.type 返回事件的类型
+      e.cancelBubble 该属性组织冒泡 非标准 ie678
+      e.returnValue 该属性组织默认事件 非标准 ie6-8 比如不让链接跳转（我们也可以利用return false 也能组织默认行为
+                                                                     没有兼容性问题 特点：return后面的代码不执行了 ）
+      e.preventDefault() 该属性组织默认事件 标准 比如不让链接跳转
+      e.stopPropagation() 组织冒泡 标准
+
+      阻止事件冒泡：e.stopPropagation() e.cancelBubble=true
+
+事件委托（代理、委派）
+    原理：不是每个子节点单独设置事件监听器，而是事件监听器设置在其父节点上，然后利用冒泡原理影响设置每个子节点
+    以上案例：给ul注册点击事件，然后利用事件对象的target来找到当前点击的li，因为点击li，事件会冒泡到ul上
+    ul有注册事件，就会触发事件监听器
+    作用：只操作一次DOM 提高了程序的性能
+
+常用的鼠标事件
+    1. 禁止鼠标右键菜单 contextmenu 主要控制应该何时显示上下文菜单，主要用于程序员取消默认的上下文菜单
+        document.addEventListener('context',function(e){ e.preventDefault();})
+    2.禁止鼠标选中（selectstart 开始选中）
+鼠标事件对象
+    e.clientX  返回鼠标相对于浏览器窗口可视区的X坐标
+    e.clientY  返回鼠标相对于浏览器窗口可视区的Y坐标
+    e.pageX    返回鼠标相对于文档页面的X坐标
+    e.pageY    返回鼠标相对于文档页面的X坐标
+    e.screenX  返回鼠标相对于电脑屏幕的X坐标
+    e.screenY  返回鼠标相对于电脑屏幕的Y坐标
+常见的键盘事件
+    1.keyup 按键弹起的时候触发
+    2.keydown 按键按下的时候触发  keyup和keydown不区分大小写
+    3.keypress按键按下的时候触发 但它不识别功能键 比如 ctrl shift 箭头等 区分大小写
+    三个事件的执行顺序 keydown--keypress--keyup
+    keyCode
+    keydown和keypress在文本框里面的特点：他们两个事件触发的时候，文字还没有落入文本框中
+    keyup事件触发的时候，文字已经落入文本框里面了
+
+
+BOM
+    浏览器的顶级对象window
+    页面加载事件以及注意事项
+    写出两种定时器函数并说出区别
+    JS执行机制
+    location对象完成页面之间的跳转
+    navigator对象涉及的属性
+    history提供的方法实现页面刷新
+
+   BOM浏览器对象模型，提供了独立于内容而与浏览器窗口进行交互的对象
+   BOM由一系列相关的对象构成，并且每个对象都提供了很多方法与属性
+   BOM缺乏标准 js语法的标准化组织是ECMA、DOM的标准化组织是W3C，BOM最初是Netscape浏览器标准的一部分
+
+    DOM
+        文档对象模型
+        DOM就是把文档当做一个对象来看待
+        DOM的顶级对象是document
+        DOM主要学习的是页面操作元素
+        DOM是W3C标准规范
+    BOM
+        浏览器对象模型
+        把浏览器当做一个对象来看待
+        BOM的顶级对象是window
+        BOM学习的是浏览器窗口交互的一些对象
+        BOM是浏览器厂商在各自浏览器上定义的，兼容性较差
+
+    BOM包含DOM（document、location、navigation、screen、history）
+    window是浏览器的顶级对象，它具有双重角色
+    1.它是JS访问浏览器窗口的一个接口
+    2.它是一个全局对象，定义在全局作用域中的变量、函数都会变成window对象的属性和方法
+      在调用的时候可以省略window，对话框、alert、prompt()都属于window对象
+    window下的一个特殊属性window.name
+window对象常见事件
+    1.窗口加载事件 window.onload=function(){}或者window.addEventListener("load",function(){})
+    window.onload是窗口（页面）加载事件，当文档内容完全加载完成会触发该事件（包括图像、脚本文件、css、文件等），就调用的处理函数
+    注意：1.有了window.onload就可以把JS代码写到页面元素的上方
+          2.window.onload传统注册事件方式只能写一次，如果有多个会以最后一个为准
+          3.如果使用addEventListener则没有限制
+    window.addEventListener("DOMContentLoaded",function(){})
+    DOMContentLoaded事件触发时，仅当DOM加载完成，不包括样式表、图片、flash等等
+    ie9以上才支持
+    如果页面图片很多的话，从用户访问到onload触发可能需要较长的时间，交互效果就不能实现，
+    必然影响用户的体验，此时用DOMContentLoaded事件比较合适
+    2.调整窗口大小事件
+    window.onesize=functiin(){}
+    window.addEventListener("resize",function(){})
+    window.innerWidth当前屏幕的宽度
+定时器
+    setTimeout()
+    setInterval() 秒数变化会用到 倒计时
+
+    setTimeout(function(){},2000) 到了2秒之后 就去调用function
+    函数可以直接写函数，也可以写函数名
+    页面中可能有很多个定时器，我们经常给定时器加标识符（名字）
+    setTimeout()这个调用函数我们也称为回调函数callback
+    普通函数是按照代码顺序直接调用
+    这个函数，需要等待时间，时间到了才调用函数，因此称为回调函数
+    element.onclick=function(){}或者element.addEventListener("click",fn)里面的函数也是回调函数
+
+    停止setTimeout()定时器
+    window.clearTimeout(timeoutID) (window可省略，里面的参数就是定时器的标识符)
+
+    setInterval()定时器
+    window.setInterval(回调函数,间隔的毫秒数);
+    setInterval()方法重复调用一个函数，每隔这个时间，就会调用一次回调函数
+
+this指向问题
+    一般情况下 this的最终指向是调用它的对象
+    1.全局作用域或者普通函数中的this指向全局对象window（定时器里面的this指向window）
+    2.构造函数中this指向的是实例对象
+
+JS执行机制
+    JS是单线程 也就是说同一个时间只能做一件事 导致问题：如果JS执行的时间过长，这样会造成页面的渲染不连贯，导致页面渲染加载阻塞
+    为了解决这个问题，JS中出现了同步和异步
+    同步：一个任务结束后再执行后一个任务
+    异步：在做这件事的同时，还可以去处理其他事情
+    同步任务：
+        同步任务都在主线程上执行，形成一个执行栈。
+    异步任务：
+        JS的异步是通过回调函数实现的。
+        异步任务类型：
+            1.普通事件 click、resize
+            2.资源加载 load、error
+            3.定时器 setInterval、setTimeout
+            异步任务相关回调函数添加到任务队列中（任务队列也称为消息队列）
+        JS的执行机制：
+            1.先执行栈中的同步任务
+            2.异步任务（回调函数）放入任务队列中
+            3.一旦执行栈中所有同步任务执行完毕，系统就按次序读取任务队列中的异步任务，
+             于是被读取的异步任务等待结束状态，进入执行栈，开始执行
+
+            异步任务进程处理
+
+            由于主线程不断的重复获得任务、执行任务、再获取任务、再执行、所以这种机制被称为事件循环
+
+location对象
+   window对象下的location属性用来获取和设置窗体的URL，并且可以用于解析URL，
+   因为这个属性返回的是一个对象，所以我们将这个属性也称为location对象
+   location常见属性（红皮书 p207）
+
+   案例：数据在不同页面之间的传递效果
+    1.第一个登陆页面，提交表单，action提交到index.html页面
+    2.使用第一个页面的参数，这样实现了一个数据不同页面之间的传递效果
+    3.第二个页面，使用第一个页面的数据，是利用了URL里面的location.search参数
+    4.第二个页面中，提取参数
+    5.先去掉？ 利用substr
+    6.利用=分割 键 和值 split('=')
+
+    location对象的方法
+        location.assign() 和href一样，可以跳转页面（重定向页面）记录历史，可以后退页面
+        location.replace() 替换当前页面，因为不记录历史，所以不能后退页面
+        location.reload() 重新加载页面，相当于刷新按钮 如果参数为true 强制刷新 ctrl+5
+
+navigator对象
+    navigator对象包含有关浏览器的信息，它有很多属性，最常用的是userAgent，该属性返回由客户机
+    发送服务器的user-agent头部的值
+
+history对象
+    与浏览器记录进行交互，该对象包含用户（在浏览器窗口中）访问过的URL
+    back()  后退功能
+    forward() 前进功能
+    go(参数) 前进后退功能 参数如果是1 前进1个页面 如果是-1后退一个页面
+
+元素偏移量offset系列
+    使用offset系列相关属性可以动态的得到该元素的位置（偏移），大小等
+        获得元素距离带有定位父元素的位置
+        获得元素自身的大小
+        注意：返回的数值都不带单位
+
+    offset系列常用属性
+        element.offsetParent    返回该元素带有定位的父级元素，如果父级都没有定位则返回body
+        element.offsetTop       返回元素相对带有定位父元素上方的偏移
+        element.offsetLeft      返回元素相对带有定位父元素左边框的偏移
+        element.offsetWidth     返回自身包括padding、边框、内容区的宽度、返回值不带单位
+        element.offsetHeigth    返回自身包括padding、边框、内容区的高度、返回值不带单位
+
+offset与style的区别
+    offset
+        可以得到任意样式表中的样式值
+        获得的数值没有单位
+        offsetWidth包含padding+border+width
+        offsetWidth等属性是只读属性，只能获取不能赋值
+        所以要想获取元素大小位置，用offset更合适
+    style
+        只能得到行内样式表中的样式值
+        获得的数值有单位
+        style.width不包含padding和border的值
+        style.width是可读写属性，可以获取也可以赋值
+        所以要想给元素更改值，则需要用style改变
+案例：模态框拖拽
+    拖拽的原理：鼠标按下并且移动，之后松开鼠标
+    触发事件是鼠标按下mousedown，鼠标移动mousemove鼠标松开mouseup
+    拖拽过程：鼠标移动过程中，获得最新的值赋值给模态框的left和top，这样
+               模态框就可以跟着鼠标走了
+    鼠标的坐标减去鼠标在盒子内的坐标 才是模态框真正的位置
+案例：京东放大镜
+    鼠标经过小图片盒子，黄色遮挡层和大图片盒子显示，离开隐藏2个盒子功能
+    黄色的遮挡层跟随鼠标功能
+    移动黄色遮挡层，大图片跟随移动功能
+    大图片移动距离=遮挡层移动距离*大图片最大移动距离/遮挡层的最大移动距离
+
+元素可视区 client系列
+    element.clientTop   返回元素上边框的大小
+    element.clientLeft  返回元素上边框的大小
+    element.clientWidth 返回自身包括padding，内容区的宽度，不含边框，返回数值不带单位
+    element.clientHeight返回自身包括padding，内容区的宽度，不含边框，返回数值不带单位
+
+立即执行函数(function(){})() /(function(){}())    //不需要调用，立马能够自己执行的函数
+主要作用：创建一个独立的作用域
+(function(a,b){
+    console.log(a+b);
+})(1,2);//第二个小括号可以看做是调用函数 可以传递参数
+(function sum(a,b){
+    console.log(a+b);
+})(1,2)
+dpr 物理像素比
+火狐浏览器后退按钮不能刷新页面 要用pageshow事件来触发
+
+元素滚动scroll系列
+    element.scrollTop   返回被卷去的上侧距离，返回数值不带单位
+    element.scrollLeft  返回被卷去的左侧高度，返回数值不带单位
+    element.scrollWidth 返回自身实际宽度，不含边框，返回数值不带单位
+    element.scrollHeight返回自身实际的高度，不含边框，返回数值不带单位
+    元素被卷去的头部是element.scrollTop，如果是页面被卷去的头部则是window.pageYOffset
+
+三大系列对比
+    element.offsetWidth 返回自身包括padding、边框、内容区的宽度、返回值不带单位
+    element.clientWidth 返回自身包括padding，内容区的宽度，不含边框，返回数值不带单位
+    element.scrollWidth 返回自身实际宽度，不含边框，返回数值不带单位
+
+1.offset系列经常用于获得位置 offsetLeft offTop
+2.client经常用于获取元素大小 clientWidth clientHeight
+3.scroll经常用于获取滚动距离 scrollTop scrollLeft
+4.注意页面滚动的距离通过window.pageXOffset获得
+
+mouseenter和mouseover的区别
+    mouseover鼠标经过自身盒子会触发，经过子盒子还会触发，mouseenter只会经过自身盒子触发
+    原因是：mouseenter不会冒泡
+    跟mouseenter搭配鼠标离开mouseleave同样不会冒泡
+
+封装动画函数（p880集）
+动画里必须加定位 先清除以前的定时器，只保留当前的定时器执行
+匀速动画：盒子当前的位置+固定的值
+缓动效果原理：核心算法：（目标值-现在的位置）/10 作为每次移动的距离步长
+（步长改为整数 不要出现小数问题）
+动画函数多个目标值之间移动step=step > 0 ? Math.ceil(step) : Math.floor(step);
+动画函数添加回调函数
+    回调函数原理：函数可以作为一个整数，将这个函数作为参数传到另一个函数里面，
+        当那个函数执行完之后，再执行传进去的这个函数，这个过程叫做回调
+    回调函数写到定时器结束里面
+轮播图
+
+节流阀
+    使得一定时间内只触发一次函数。
+    防止连播图按钮连续点击造成播放过快
+    节流阀的目的：当上一个函数动画内容执行完毕，再去执行下一个函数动画，让事件
+    无法连续触发。
+    核心实现思路：利用回调函数，添加一个变量来控制，锁住函数和解锁函数
+    var flag=true;
+    if(flag){flag=false;dosomething} 关闭节流阀
+    利用回调函数动画执行完毕，flag=true 打开节流阀
+    if(callback){callback()}==callback&&callback()
+
+移动端
+    触屏事件
+        touch（触摸事件）
+        touchstart  touchmove   chouchend
+        TouchEvent(触摸事件对象) 描述手指在触摸平面（触摸屏、触摸板）的状态变化的事件，
+                                用于描述一个或多个触电，是开发者可以检测触点的移动，触点的增加和减少等等
+        常见对象列表：
+            touches 正在触摸屏幕的所有手指的一个列表
+            targetTouches 正在触摸当前DOM元素上的手指的一个列表 重点（如果侦听的是一个DOM元素，他们两个是一样的）
+            changedTouches 手指状态发生了改变的列表，从无到有，从有到无变化
+
+    移动端拖动元素（900）
+    移动端轮播图（检测过渡完成事件 transitioned）
+    click延时解决方案
+        移动端click事件会有300ms的延时，原因是移动端屏幕双击会缩放（double tap to zoom）页面
+        解决方案：1.禁用缩放，浏览器禁用默认的双击缩放行为，并且去掉300ms的点击延迟
+            <meta name="viewport" content="user-scalable=no">
+                  2.利用touch事件自己封装这个事件
+                  原理：1.当我们手指触摸屏幕，记录当前触摸时间
+                        2.当我们手指离开屏幕，用离开的时间减去触摸时间
+                        3.如果时间小于150ms，并且没有滑动过屏幕，那么我们就定义为点击
+    swiper插件
+    superslide
+    iscroll
+插件的使用总结
+    1.确认插件实现的功能
+    2.去官网查看使用说明
+    3.下载插件
+    4.打开demo实例文件，查看需要引入的相关文件，并且导入
+    5.复制demo实例文件中的结构html，样式css以及js代码
+
+
+本地存储 （P638）
+    sessionStorage 数据的存储及获取
+    localStorage 数据的存储及获取
+    两者的区别
+    本地存储特性：
+        1.数据存储在用户浏览器中
+        2.设置、读取方便、甚至页面刷新不丢失数据
+        3.容量较大，sessionStorage约5M，localStorage约20M
+        4.只能存储字符串，可以将对象JSON.string()编码后存储
+    window.sessionStorage
+        1.生命周期为关闭浏览器窗口
+        2.在同一个窗口（页面）下数据可以共享
+        3.以键值对的形式存储使用
+        存储：sessionStorage.setItem( key,value)
+        获取：sessionStorage.getItem(key)
+        删除：sessionStorage.remove(key)
+        删除所有数据：sessionStorage.clear()
+    window.localStorage
+        1.生命周期永久生效，除非手动删除否则关闭页面也会存在
+        2.可以多窗口（页面）共享（同一浏览器可以共享）
+        3.以键值对的形式存储使用
+        存储：localStorage.setItem(key,value)
+        获取：localStorage.getItem(key)
+        删除：localStorage.remove(key)
+        删除所有数据：localStorage.clear()

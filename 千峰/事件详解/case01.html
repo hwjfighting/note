@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div{
+            width: 500px;
+            height: 500px;
+            position: relative;
+            border: 1px solid red;
+        }
+        span{
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload=function () {
+            var oDiv=document.getElementsByTagName("div")[0];
+            var oSpan=document.getElementsByTagName("span")[0];
+            oDiv.onmousemove=function (e) {
+                var evt=e||window.event;
+                /**
+                 * function(event){
+                    var evt=event?event||window.event;
+               }
+                 */
+                var x=evt.clientX;
+                var y=evt.clientY;
+                oSpan.innerHTML=x+";"+y+"px";
+
+                oDiv.onmouseout=function () {
+                    oSpan.innerHTML="";
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div >
+        <span></span>
+    </div>
+
+</body>
+</html>

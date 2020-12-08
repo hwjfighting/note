@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        div{width: 200px;height: 200px;border-radius: 50%;margin: auto;position: relative}
+        p{width: 160px;height: 160px;background: url("../images/1.jpeg");border-radius: 50%;border: 20px solid rgba(255,255,255,0.5);
+            background-origin: border-box;position: absolute;z-index:1;transition: all 1s;}
+        h1{width: 200px;height: 200px;border-radius: 50%;background: black;position: absolute;text-align: center;
+        line-height: 200px;color: #fff;transition: all 1s;transform: scale(0,0) rotate(0);}
+        div:hover p{transform: scale(0,0) rotate(360deg);}
+        div:hover h1{transform: scale(1,1) rotate(360deg);}
+    </style>
+</head>
+<body>
+ <div>
+     <p></p>
+     <h1>文字</h1>
+ </div>
+
+</body>
+</html>

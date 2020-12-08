@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        /**
+         * replaceChild()
+         * 【格式】parent.replaceChild(newNode,oldNode);
+         * 功能：用newNode将oldNode替换掉
+         *
+         * cloneNode
+         * 【格式】node.cloneNode()
+         * 参数：true 默认是false 如果传true就会复制元素节点中的内容
+         * 返回值：新克隆出来的节点
+         * 功能：克隆节点
+         *
+         * removeChild()
+         * 【格式】node.parentNode.removeChild(node);
+         * 功能：删除节点
+         */
+        window.onload=function () {
+            var oDiv=document.getElementById("div1");
+            // var node=document.createElement("strong");
+            // oDiv.parentNode.replaceChild(node,oDiv);
+
+            // var oDiv=document.getElementById("div1");
+            // var oSpan=document.getElementsByTagName("span")[0];
+            // var node=oDiv.cloneNode(true);
+            // //将div添加到span节点的前面
+            // oSpan.parentNode.insertBefore(node,oSpan);
+
+            oDiv.parentNode.removeChild(oDiv);
+        }
+    </script>
+</head>
+<body>
+    <span>span</span>
+    <div id="div1">div</div>
+    <p>p</p>
+</body>
+</html>

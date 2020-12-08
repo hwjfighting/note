@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <ul id="test"></ul>
+    <script>
+        //ES5
+        /*
+        var obj={"name":"John","age":"20"};
+        var name=obj.name;
+        var age=obj.age;
+        console.log(name+"的年龄是"+age);
+        */
+        //ES6
+        /*
+        let obj={"name":"John","age":"20"};
+        let{name,age}=obj;
+        console.log(`${name}的年龄是${age}`);
+        */
+
+        var arr=[0,1,2,3,4];
+        let oUl=document.getElementById("test");
+        var html="";
+
+        //ES5的写法
+        // for(var i in arr){
+        //     html+="<li>"+i+"</li>"
+        // }
+
+        //ES6的写法
+       /* for(var i in arr){
+            html+=`<li>${arr[i]}</li>`;
+        }*/
+       for(var i in arr){
+           html+=`<li>
+            <a href="">${arr[i]}</a>
+            </li>`;
+       }
+
+        oUl.innerHTML=html;
+</script>
+
+</body>
+</html>

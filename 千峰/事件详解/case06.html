@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        li{
+            margin: 10px;
+            background-color: #6bdea7;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload=function () {
+            var oUl=document.getElementsByTagName("ul")[0];
+            var oli=document.getElementsByTagName("li");
+            // for (var i=0;i<oli.length;i++){
+            //     oli[i].onclick=function () {
+            //         console.log(this.innerHTML);
+            //     }
+            // }
+            //事件委托
+            oUl.onclick=function (e) {
+                var evt=e||event;
+                var target=evt.target||evt.srcElement;//都是返回事件触发时鼠标所在的对象
+                if(target.nodeName.toUpperCase()=="LI"){
+                    console.log(target.innerHTML);
+                }
+            }
+            for(var i=0;i<5;i++){
+                var  oli2=document.createElement("li");
+                 oli2.innerHTML=i;
+                oUl.appendChild(oli2);
+
+            }
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            margin: 0;padding: 0;
+        }
+        .box{
+            width: 600px;height: 600px;margin: 0 auto;border:2px solid black;position: relative;background: #eee;
+            perspective: 800px;//perspective-origin: left top;//perspective-origin定义了观察者的视角相对于显示元素的位置
+        }
+        .box ul{
+            width: 300px;height: 300px;//border: 1px solid royalblue;
+            margin: auto;position: absolute; top: 0;left: 0;
+            right: 0;bottom: 0;transform-style: preserve-3d;transition: all 4s;
+        }
+        .box ul:hover{
+            transform: rotateY(360deg) rotateY(360deg);
+        }
+        .box ul li{
+            list-style: none;width: 300px;height: 300px;text-align: center;line-height: 300px;font-size: 48px;
+            position: absolute;//backface-visibility: hidden;//能否看到后面的图
+        }
+        .box ul li:nth-child(1){background: rgba(255,0,0,.5);transform: translateY(-150px) rotateX(90deg);}
+        .box ul li:nth-child(2){background: rgba(0,255,0,.5);transform: translateY(150px) rotateX(-90deg);}
+        .box ul li:nth-child(3){background: rgba(0,0,255,.5);transform: translateX(-150px) rotateY(-90deg);}
+        .box ul li:nth-child(4){background: rgba(255,255,0,.5);transform: translateX(150px) rotateY(90deg);}
+        .box ul li:nth-child(5){background: rgba(255,0,255,.5);transform: translateZ(150px);}
+        .box ul li:nth-child(6){background: rgba(0,255,255,.5);transform: translateZ(-150px) rotateY(180deg);}
+
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li>上</li>
+            <li>下</li>
+            <li>左</li>
+            <li>右</li>
+            <li>前</li>
+            <li>后</li>
+        </ul>
+    </div>
+
+</body>
+</html>

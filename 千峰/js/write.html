@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 300px;
+            height: 300px;
+            background-color: #7ef5ff;
+        }
+
+    </style>
+    <script type="text/javascript">
+        window.onload=function () {
+            var OBtn=document.getElementById("btn");
+            var ODiv=document.getElementById("div1")
+            OBtn.onclick=function () {
+                // document.write("<h1>我是标题内容</h1>")//会将原有页面的内容覆盖掉
+                //1.创建span节点
+                // var node=document.createElement("span");
+                // // alert(node);
+                // //2.给span节点中添加文本
+                // var OText=document.createTextNode("文本内容");
+                // //3.将文本插入到节点中
+                // node.appendChild(OText);
+                // ODiv.appendChild(node);
+
+                var node=createElementWithTxt("span","文本内容");
+                ODiv.appendChild(node);
+
+
+
+            }
+        }
+        /*
+        创建一个带文本的元素节点
+         */
+        function createElementWithTxt(TagName,Text) {
+            var node=document.createElement(TagName);
+            var OText=document.createTextNode(Text);
+            node.appendChild(OText);
+            return node;
+
+        }
+
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <p>hhh</p>
+        <em>lalala</em>
+    </div>
+    <button id="btn">按钮</button>
+
+</body>
+</html>

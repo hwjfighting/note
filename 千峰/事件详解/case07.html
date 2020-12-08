@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #outer{
+            width: 200px;
+            height: 200px;
+            background-color: black;
+        }
+        #inner{
+            width: 100px;
+            height: 100px;
+            background-color: #7ef5ff;
+        }
+    </style>
+    <script type="text/javascript">
+       window.onload=function () {
+           var outer=document.getElementById("outer");
+           var inner=document.getElementById("inner");
+
+           // outer.onclick=foo;
+           // outer.onclick=bar;//点击事件会覆盖，只输出一个
+
+           // inner.addEventListener("click",baz,true);
+           // outer.addEventListener("click",foo,true);
+           // outer.addEventListener("click",bar,false);//添加的事件同时输出
+           // outer.removeEventListener("click",foo);//移除监听事件
+
+           outer.attachEvent("onclick",foo);
+
+           function foo() {
+               console.log("outer");
+           }
+           function bar() {
+               console.log("outer2")
+           }
+           function baz() {
+               console.log("inner")
+           }
+       }
+    </script>
+</head>
+<body>
+    <div id="outer">
+        <div id="inner"></div>
+    </div>
+
+</body>
+</html>
