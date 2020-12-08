@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .back{
+            width: 70px;
+            height: 70px;
+            background: deeppink;
+            text-align: center;
+            line-height: 70px;
+            position:fixed;
+            right: 30px;
+            bottom:100px;
+            display: none;
+        }
+        .container{
+            width: 900px;
+            height: 500px;
+            background-color: deepskyblue;
+            margin: 400px auto;
+
+        }
+    </style>
+</head>
+<body>
+<div class="back">返回顶部</div>
+<div class="container"></div>
+
+<script src="jquery.min.js"></script>
+<script>
+    $(function () {
+        var boxTop=$(".container").offset().top;
+        //页面滚动事件
+        $(window).scroll(function () {
+            // console.log($(document).scrollTop());
+            if($(document).scrollTop()>boxTop){
+               $(".back").fadeIn();
+            }else{
+                $(".back").fadeOut();
+            }
+        });
+        //返回顶部
+        $(".back").click(function () {
+            $("body,html").stop().animate({
+                scrollTop:0
+            });
+        })
+    })
+</script>
+
+</body>
+</html>

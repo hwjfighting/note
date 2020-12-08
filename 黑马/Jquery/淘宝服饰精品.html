@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{padding: 0;margin: 0}
+        a{text-decoration: none;}
+        #wrapper{width: 210px;height: 210px;margin: auto}
+        ul{width: 80px;height: 120px;float: left}
+        ul li{list-style: none;width: 80px;height: 30px;line-height: 30px;text-align: center;border: 1px solid pink;}
+        #right{width:128px;height: 128px;overflow: hidden;float: left;}
+        #right img{width: 128px;height: 128px}
+    </style>
+    <script src="jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("li").mouseover(function () {
+                $(this).css("background","pink");
+                $(this).siblings("li").css("background","");
+                var index=$(this).index();
+                $("#right div").eq(index).show();
+                $("#right div").eq(index).siblings().hide();
+            })
+
+        })
+
+    </script>
+</head>
+<body>
+<div id="wrapper" >
+    <ul id="left">
+        <li><a href="">第一张</a></li>
+        <li><a href="">第二张</a></li>
+        <li><a href="">第三张</a></li>
+        <li><a href="">第四张</a></li>
+    </ul>
+    <div id="right">
+        <div><a href=""><img src="../images/1.jpeg" alt=""></a></div>
+        <div><a href=""><img src="../images/2.jpeg" alt=""></a></div>
+        <div><a href=""><img src="../images/3.jpeg" alt=""></a></div>
+        <div><a href=""><img src="../images/4.jpeg" alt=""></a></div>
+    </div>
+</div>
+
+
+</body>
+</html>

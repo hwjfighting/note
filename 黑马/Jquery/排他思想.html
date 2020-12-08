@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            float: left;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<button>快速</button>
+<button>快速</button>
+<button>快速</button>
+<button>快速</button>
+<script src="jquery.min.js"></script>
+<script>
+   $(function () {
+       //1.隐式迭代 给所有的button 都绑定上click事件
+       $("button").click(function () {
+           //2.当前的元素变化背景元素
+           $(this).css("background","pink");
+           //3.其余的兄弟去掉背景元素  隐式迭代
+           $(this).siblings("button").css("background","");
+       })
+
+   })
+
+</script>
+</body>
+</html>

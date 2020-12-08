@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        .floor{
+            width: 300px;
+            margin: 200px auto;
+        }
+        .p1,.p2,.p3,.p4{
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        .p1{
+            background-color: yellow;
+        }
+        .p2{
+            background-color: cyan;
+        }
+        .p3{
+            background-color: magenta;
+        }
+        .p4{
+            background-color: #9b0d5f;
+        }
+        .nav{
+            width: 50px;
+            height: 100px;
+            display: none;
+            background-color: pink;
+            position: fixed;
+            top: 200px;
+            left: 0;
+
+        }
+         li{
+            list-style: none;
+            height: 25px;
+            text-align: center;
+            line-height: 25px;
+        }
+        .current{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="floor">
+    <div class="p1 w"></div>
+    <div class="p2 w"></div>
+    <div class="p3 w"></div>
+    <div class="p4 w"></div>
+</div>
+
+<ul class="nav">
+    <li class="current">1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+</ul>
+
+<script src="jquery.min.js"></script>
+<script>
+    $(function () {
+        //当我们点击了小li，此时不需要执行 页面滚动事件里面的li的背景选择 添加current
+        //节流阀 互斥锁
+        var flag=true;
+        //显示隐藏电梯导航
+        var toolTop=$(".floor").offset().top;
+        toggleTool();
+        function toggleTool(){
+            if($(document).scrollTop()>=toolTop){
+                $(".nav").fadeIn();
+            }else{
+                $(".nav").fadeOut();
+            }
+        }
+        $(window).scroll(function () {
+            toggleTool();
+            //页面滚动到某个内容区域，左侧电梯导航小li相应添加和删除current
+            if(flag){
+                $(".w").each(function (i,ele) {
+                    if($(document).scrollTop()>=$(ele).offset().top){
+                        $("li").eq(i).addClass("current").siblings().removeClass();
+                    }
+                })
+            }
+        });
+        //点击电梯导航页面可以滚动到相应的内容区域
+        $("ul").on("click","li",function () {
+            flag=false;
+           //当我们每次点击小li 就需要计算出页面要去往的位置
+           // 选出对应索引号的内容区盒子 计算它的.offset().top;
+          var current= $(".w").eq($(this).index()).offset().top;
+          // console.log(current);
+          // 页面滚动
+          $("body,html").stop().animate({
+              scrollTop:current
+          },function () {
+              flag=true;
+          });
+          //点击之后，让当前的小li 添加current类名，兄弟移除current类名
+          $(this).addClass("current").siblings().removeClass();
+        })
+    })
+</script>
+
+</body>
+</html>

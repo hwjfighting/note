@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0}
+        ul{list-style: none;width: 450px;margin-left: 80px}
+        ul li{border-bottom: 1px solid grey;line-height: 25px}
+        a{float: right;}
+        div{width: 600px;border: 2px solid black;padding: 10px;margin:100px auto}
+        textarea{width: 450px;height: 160px;margin: auto;}
+    </style>
+    <script src="jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("button").on("click",function () {
+                var li=$("<li></li>");
+                li.html($("textarea").val()+"<a href='#'>删除</a>");
+                $("ul").prepend(li);
+                li.slideDown();
+                $("textarea").val("");
+            });
+            $("ul").on("click","a",function () {
+                $(this).parent().slideUp(function () {
+                    $(this).remove();
+                });
+                
+            })
+        })
+    </script>
+</head>
+<body>
+<div>
+    <span>微博发布</span>
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+    <button>发布</button>
+    <ul></ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{padding: 0;margin: 0}
+        ul li{width: 100px;height: 20px;text-align: center;line-height: 20px;list-style: none;float: left}
+        ul li a{text-decoration: none;color: black}
+        ul li ul {display: none}
+
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+<!--jQuery筛选选择器-->
+
+<!--<p>我是ul序列</p>-->
+<!--<ul>-->
+    <!--<li>1</li>-->
+    <!--<li>2</li>-->
+    <!--<li>3</li>-->
+    <!--<li>4</li>-->
+<!--</ul>-->
+<!--<p>我是ol序列</p>-->
+<!--<ol>-->
+    <!--<li>1</li>-->
+    <!--<li>2</li>-->
+    <!--<li>3</li>-->
+    <!--<li>4</li>-->
+<!--</ol>-->
+<!--<script>-->
+    <!--$("ul li:first").css("color","red");-->
+    <!--$("ul li:eq(2)").css("color","blue");-->
+    <!--$("ol li:odd").css("color","yellow");-->
+    <!--$("ol li:even").css("color","pink");-->
+<!--</script>-->
+
+    <ul class="nav">
+        <li>
+            <a href="">微博</a>
+            <ul>
+                <li><a href="">私信</a></li>
+                <li><a href="">评论</a></li>
+                <li><a href="">@我</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">微博</a>
+            <ul>
+                <li><a href="">私信</a></li>
+                <li><a href="">评论</a></li>
+                <li><a href="">@我</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">微博</a>
+            <ul>
+                <li><a href="">私信</a></li>
+                <li><a href="">评论</a></li>
+                <li><a href="">@我</a></li>
+            </ul>
+        </li>
+    </ul>
+
+<script src="jquery.min.js"></script>
+<script>
+   $(function () {
+       $(".nav>li").mouseover(function () {
+           // $(this) jQuery当前元素 this不要加引号
+           $(this).children("ul").show();
+       });
+       $(".nav>li").mouseout(function () {
+           // $(this) jQuery当前元素 this不要加引号
+           $(this).children("ul").hide();
+       })
+   })
+
+</script>
+</body>
+</html>
