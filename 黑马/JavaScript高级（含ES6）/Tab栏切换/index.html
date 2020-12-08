@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        main{
+            width: 700px;
+            margin: 100px auto;
+        }
+        h4{
+            height: 60px;
+            text-align: center;
+        }
+        .con{
+            height: 500px;
+            border: 1px solid sandybrown;
+        }
+        .firstNav{
+            height: 50px;
+            border-bottom: 1px solid gray;
+        }
+        .firstNav ul li{
+            width: 100px;
+            height: 52px;
+            list-style: none;
+            float: left;
+            text-align: center;
+            line-height: 50px;
+            border-right: 1px solid gray;
+
+        }
+        .liactive{
+            background-color: white;
+        }
+        .firstNav ul li .iconfont{
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-color: #9b0d5f;
+            float: right;
+        }
+        .firstNav input{
+            width: 90px;
+            height: 30px;
+            margin: auto;
+        }
+        .tabAdd{
+            float: right;
+            border: 1px solid #ccc;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            margin-top:15px;
+        }
+
+        section{
+            margin: 10px auto;
+            width: 650px;
+            height: 450px;
+            display: none;
+        }
+        .conactive{
+            display: block;
+        }
+        .tabscon input{
+            width: 650px;
+            height: 300px;
+            margin: auto;
+        }
+
+
+    </style>
+</head>
+<body>
+    <main>
+        <h4>
+            JS 面向对象 动态添加标签页
+        </h4>
+        <div class="con">
+            <div class="tabsBox" id="tab">
+                <!--tab标签-->
+                <nav class="firstNav" >
+                    <ul>
+                        <li class="liactive"><span>测试1</span><span class="iconfont icon-guanbi"></span></li>
+                        <li><span>测试2</span><span class="iconfont icon-guanbi"></span></li>
+                        <li><span>测试3</span><span class="iconfont icon-guanbi"></span></li>
+                    </ul>
+                    <div class="tabAdd">
+                        <span>+</span>
+                    </div>
+                </nav>
+
+                <!--tab内容-->
+                <div class="tabscon">
+                    <section class="conactive">测试1</section>
+                    <section>测试2</section>
+                    <section>测试3</section>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>

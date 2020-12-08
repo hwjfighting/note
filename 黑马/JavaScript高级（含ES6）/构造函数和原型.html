@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Star(uname,age){
+        this.uname=uname;
+        this.age=age;
+    }
+    /*Star.prototype.sing=function () {
+        console.log('我会唱歌');
+    };
+    Star.prototype.movie=function () {
+        console.log('我会演电影');
+    };*/
+    Star.prototype={
+      //如果我们修改了原来的原型对象，给原型对象赋值的是一个对象，则必须手动的利用constructor
+      constructor:Star,
+      sing:function () {
+          console.log('我会唱歌');
+      },
+      movie:function () {
+          console.log('我会演电影');
+      }
+    };//写成对象的形式时候  Star.prototype中没有constructor 需要手动加
+    var ldh=new Star('刘德华',18);
+    var zxy=new Star('张学友',19);
+    // console.log(Star.prototype);
+    // console.log(ldh.__proto__ );
+
+  /*  输出结果为：function star(uname,age){
+                    this.uname=uname;
+                    this.age=age;
+                }*/
+    console.log(Star.prototype.constructor);
+    console.log(ldh.__proto__.constructor);
+    console.log(Star.prototype.__proto__===Object.prototype);//true
+    //Star原型对象里面的__proto__原型指向的是
+    //Object.prototype原型对象里面的__proto__原型 指向null
+    //  原型对象中的this指向ldh
+
+</script>
+
+</body>
+</html>

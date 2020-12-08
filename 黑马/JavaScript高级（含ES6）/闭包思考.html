@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*//没有闭包产生
+    var name="The window";
+    var object={
+        name:'My Object',
+        getNameFunc:function () {
+            return function(){
+                return this.name;
+            }
+        }
+    };
+    console.log(object.getNameFunc()());//结果为 The window
+
+    // 类似于
+    /!*var f=function () {
+        return this.name;
+    };
+    f();*!/
+    //也类似于 立即执行函数，所以this指向window
+    (function(){
+        return this.name;
+    })()*/
+
+    //产生了闭包
+    var name = "The Window";
+    var object = {
+        name:"My Object",
+        getNameFunc:function() {
+            var that=this;
+            return function () {
+                return that.name;
+            }
+        }
+    };
+    console.log(object.getNameFunc()());//结果为：My Object
+
+    var f=object.getNameFunc();
+    f();
+</script>
+
+</body>
+</html>

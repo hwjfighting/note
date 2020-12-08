@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const arr = ['火锅','烤肉','奶茶','辣条'];
+    for(let v of arr){
+        console.log(v);
+    }
+
+    let iterator = arr[Symbol.iterator]();
+    console.log(iterator);
+
+    iterator.next();
+    iterator.next();
+    iterator.next();
+    iterator.next();
+    /*console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());*/
+
+
+    //自定义遍历数据
+    //使用for...of遍历，每次返回的结果是数组里的一个成员
+    //声明一个对象
+   /* const meishi = {
+        name:'我爱美食',
+        status: [
+            '火锅',
+            '烤肉',
+            '奶茶',
+            '辣条'
+        ],
+        [Symbol.iterator](){
+            let index = 0;
+            return {
+                next: () => {
+                    if(index < meishi.status.length){
+                        const result =  {value:this.status[index],done:false};
+                        index++;
+                        return result;
+                    }else{
+                        return {value:undefined,done:true}
+                    }
+                }
+            }
+        }
+    };
+    for(let v of meishi){
+        console.log(v);
+    }
+*/
+
+
+   //可以用foreach 但不符合面向对象的思想  不能直接操作对象的属性
+    /*meishi.status.forEach(item => {
+        console.log(item);
+    })*/
+
+
+
+
+</script>
+
+</body>
+</html>

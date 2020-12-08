@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>点击</button>
+<script>
+    var that;
+    class Star{
+        constructor(uname,age){
+            that=this;
+            console.log(this);//指向star
+            this.uname=uname;
+            this.age=age;
+            this.btn=document.querySelector("button");
+            this.btn.onclick=this.sing;
+        }
+        sing(){
+            //这个sing方法里面的this指向的是btn 这个按钮，因为这个按钮调用了这个函数
+            console.log(this.uname);//undefined 因为this指向btn
+        }
+        dance(){
+            console.log(this); //函数中的this指向调用者
+        }
+    }
+    var ldh=new Star('刘德华');
+    console.log(that===ldh);//true
+    ldh.dance();
+</script>
+
+</body>
+</html>

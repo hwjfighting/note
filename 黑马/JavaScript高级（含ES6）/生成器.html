@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+   /* function* gen() {
+        console.log('hello');
+    }
+    let iterator = gen();
+    console.log(iterator);
+    iterator.next();*/
+  /* function* gen() {
+       console.log('11111');
+       yield '求各路';
+      console.log('22222');
+       yield '神仙';
+       console.log('55555');
+       yield '保佑我';
+       console.log('66666');
+       yield '找工作顺利'
+
+   }*/
+   // let iterator = gen();
+   /*iterator.next();
+   iterator.next();
+   iterator.next();
+   iterator.next();
+   iterator.next();*/
+
+  /* console.log("=================");
+
+   console.log(iterator.next());
+   console.log(iterator.next());
+   console.log(iterator.next());
+   console.log(iterator.next());
+   console.log(iterator.next());
+
+   console.log("=================");*/
+
+
+   /*for(let v of iterator){
+       console.log(v);
+   }*/
+
+   /*function *gen(arg) {
+       console.log(arg);
+       let r1  = yield 1111;
+       console.log(r1);
+       let r2 = yield 2222;
+       console.log(r2);
+       let r3 = yield 3333;
+       console.log(r3)
+   }
+   let iterator = gen('AAA');
+   console.log(iterator.next());
+   //next方法可以传入实参
+   console.log(iterator.next('BBB')); //第二次调用next传入的参数作为第一个yield语句整体返回的结果
+   console.log(iterator.next('CCC')); //第三次调用next传入的参数作为第二个yield语句整体返回的结果
+   console.log(iterator.next('DDD')); //第四次调用next传入的参数作为第三个yield语句整体返回的结果*/
+
+
+
+   function *gen() {
+
+       let r1  = yield 1111;
+       console.log(r1);
+       let r2 = yield 2222;
+       console.log(r2);
+       let r3 = yield 3333;
+       console.log(r3)
+   }
+   let iterator = gen();
+   console.log(iterator.next('hhh'));
+   //next方法可以传入实参
+   console.log(iterator.next('BBB')); //第二次调用next传入的参数作为第一个yield语句整体返回的结果
+   console.log(iterator.next('CCC')); //第三次调用next传入的参数作为第二个yield语句整体返回的结果
+   console.log(iterator.next('DDD')); //第四次调用next传入的参数作为第三个yield语句整体返回的结果
+
+
+
+</script>
+</body>
+</html>

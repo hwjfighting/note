@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //创建Symbol
+    /*let s = Symbol();
+    console.log(s,typeof s);  //Symbol() "symbol"
+
+    let s2 = Symbol('贺文靖'); //Symbol 是一个函数
+    let s3 = Symbol('贺文靖');
+    console.log(s2 === s3);//false
+
+    let s4 = Symbol.for('美女');  //此时，Symbol成为一个对象
+    let s5 = Symbol.for('美女');
+    console.log(s4 === s5);//true*/
+
+    //向对象添加方法 up down
+    let game = {};
+    //声明一个对象
+    let methods = {
+        up: Symbol(),
+        down: Symbol()
+    };
+
+    game[methods.up] = function () {
+        console.log("我可以上升");
+    };
+
+    game[methods.down] = function () {
+        console.log("我可以下降");
+    };
+    //调用方法
+    game[methods.up]();
+
+
+    let say = Symbol('say');
+    let zibao = Symbol('zibao');
+   /* let youxi = {
+        name: '狼人杀',
+        [Symbol('say')]: function () {
+            console.log('我可以发言');
+        },
+        [Symbol('zibao')]: function () {
+            console.log('我可以自爆');
+        }
+    };*/
+    let youxi = {
+        name: '狼人杀',
+        [say]: function () {
+            console.log('我可以发言');
+        },
+        [zibao]: function () {
+            console.log('我可以自爆');
+        }
+    };
+    youxi[say]();
+
+
+</script>
+</body>
+</html>

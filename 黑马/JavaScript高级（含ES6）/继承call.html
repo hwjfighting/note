@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>按钮</button>
+<button>按钮</button>
+<button>按钮</button>
+<script>
+   /* //call方法
+    function fn(x,y){
+        console.log('我想喝咖啡');
+        console.log(this);
+        console.log(x+y);
+    }
+    var o={
+        name:'andy'
+    };
+    fn();// 此时this指向window
+    //1.call可以调用函数
+    fn.call();
+    //2.call()可以改变这个函数的this指向，此时这个函数的this，就指向了o这个对象
+    fn.call(o,1,2);*/
+
+
+  /* //借用父构造函数继承属性
+   //  1.父构造函数
+    function Farther(uname,age){
+        //this指向父构造函数中的实例对象
+        this.uname=uname;
+        this.age=age;
+    }
+    Farther.prototype.money=function () {
+        console.log(100000);
+    };
+    function Son(uname,age,score){
+        //this指向父构造函数中的实例对象
+        Farther.call(this,uname,age);
+        this.score=score;
+    }
+    // Son.prototype=Farther.prototype;  这样直接赋值会有问题，如果修改了子原型对象，父类型原型对象也会跟着一起变化
+    Son.prototype=new Farther();
+    //如果利用对象的形式修改了原型对象，别忘了利用constructor指回原来的原型对象
+    Son.prototype.constructor=Son;
+    Son.prototype.exam=function () {
+      console.log('孩子要考试');
+    };
+
+    var son=new Son('jane',20,80);
+    console.log(son);
+    console.log(Farther.prototype);
+    console.log(Son.prototype.constructor);*/
+
+/*// apply()
+    var o={
+        name:'andy'
+    };
+    function fn() {
+        console.log(this);
+        console.log(arr);//'pink'
+    }
+    fn.apply(o,['pink']);
+    //1.调用函数,改变函数的this指向
+    //2.他的参数必须是数组（伪数组）
+    //3.apply的主要应用 比如我们可以利用 apply 借助数学内置对象求最大值
+    var arr=[1,2,0,33,5,4];
+    var max=Math.max.apply(Math,arr);
+    console.log(max);*/
+
+  /* var o={
+       name:'andy'
+   };
+   function fn() {
+       console.log(this);
+   }
+   var f=fn.bind(o);
+    f();*/
+    //1.不会调用原来的函数 可以改变原来函数内部的this指向
+    //2.返回的是原函数改变this之后产生的新函数
+    //3.如果有的函数我们不需要立即调用，但是又想改变这个函数内部的this指向此时用bind
+    //4.当我们有一个按钮，当我们点击了之后，就禁用这个按钮，3s之后开启这个按钮
+   /* var btn=document.querySelector('button');
+    btn.onclick=function () {
+        this.disabled=true;
+        setTimeout(function () {
+            this.disabled=false;
+        }.bind(this),3000);
+    }*/
+   var btns=document.querySelectorAll('button');
+   for(var i=0;i<btns.length;i++){
+       btns[i].onclick=function () {
+           this.disabled=true;
+           setTimeout(function () {
+               this.disabled=false;
+           }.bind(this),2000)
+       }
+   }
+</script>
+
+</body>
+</html>

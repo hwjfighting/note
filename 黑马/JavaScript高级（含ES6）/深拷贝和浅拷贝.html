@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var obj={
+            id:1,
+            name:'andy',
+            msg:{
+                age:18
+            },
+            color:['pink','black']
+        };
+        var o={};
+        //只拷贝了msg的地址
+       /* for(var k in obj){
+            //k是属性名 obj[k]是属性值
+            o[k]=obj[k];
+        }
+        console.log(o);
+        o.msg.age=20;
+        console.log(o);
+        console.log(obj);*/
+      /* Object.assign(o,obj);//参数：拷贝给谁 拷贝哪一个对象
+       console.log(o);
+        o.msg.age=20;
+        console.log(o);
+        console.log(obj);*/
+
+     /* // 深拷贝
+        function  deepCopy(newobj,oldobj) {
+            for(var k in oldobj){
+                //判断属性值属于哪种数据类型
+                //1.获取属性值 oldobj[k]
+                var item=oldobj[k];
+                //2.判断这个值是否是数组
+                if(item instanceof Array){
+                    newobj[k]=[];  //o.color = []
+                    deepCopy(newobj[k],item);
+                }else if(item instanceof Object){
+                    //3.判断这个值是否是对象
+                    newobj[k]={};
+                    deepCopy(newobj[k],item);
+                }else {
+                    //4.属于简单数据类型
+                    newobj[k]=item;
+                }
+            }
+        }
+        deepCopy(o,obj);
+        console.log(o);
+        o.msg.age=20;
+        console.log(obj);
+
+        //数组也属于对象，所以要先写数组
+*/
+
+     var arr=['red','green','blue'];
+     var Obj={
+         id: 1,
+         name: 'ldn',
+         age: 12
+     };
+     for(var i in arr){
+         console.log(i);
+         console.log(arr[i]);
+     }
+     for(var k in Obj){
+         console.log(k);
+         console.log(Obj[k]);
+     }
+
+    </script>
+</body>
+</html>
