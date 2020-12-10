@@ -1,0 +1,177 @@
+渐进式框架的大概意思就是你可以只用我的一部分，而不是用了我这一点就必须用我的所有部分。
+
+Vue的基本使用步骤
+    1.需要提供标签用于填充数据
+    2.引入vue.js库文件
+    3.可以使用vue的语法做功能了
+    4.把Vue提供的数据填充到标签里面
+差值表达式存在的问题：“闪动” 浏览器会先显示{{...}} 然后被内容迅速条带
+如何解决该问题：使用v-cloak指令
+解决该问题的原理：先通过样式隐藏内容，然后在内存中进行值的替换，替换好之后再显示最终的结果
+
+指令的本质就是自定义属性
+
+指令的格式：
+    以v-开始（比如：v-cloak）  cloak 斗篷
+    1.v-cloak指令用法
+    1.提供样式
+    [v-cloak]{
+    display:none;
+    }
+    2.在在插值表达式所在的标签中添加v-cloak指令
+
+数据绑定指令
+    v-text 填充文本   会覆盖原有的文本
+        相比插值表达式更加简洁
+    v-html 填充HTML片段
+        存在安全问题
+        本网站内部数据可以使用，来自第三方的数据不可以用
+    v-pre 填充原始信息
+        显示原始信息，跳过编译过程（分析编译过程）
+如何理解响应式
+    1.html5中的响应式（屏幕尺寸的变化导致样式的变化）
+    2.数据的响应式（数据的变化导致页面内容的变化）
+什么是数据绑定
+    1.数据绑定：将数据填充到标签中
+v-once只编译一次
+    1.显示内容之后不再具有响应式功能
+
+双向数据绑定
+    v-model
+    <input type='text' v-model='uname'/>
+
+v-model修饰符的使用
+    lazy修饰符:
+        默认情况下, v-model默认是在input事件中同步输入框的数据的。
+        也就是说,-旦有数据发生改变对应的data中的数据就会自动发生
+        改变。
+        lazy修饰符可以让数据在失去焦点或者回车时才会更新:
+
+        <label>
+            <input type="text" v-model.lazy="msg">
+        </label>
+        <h2>{{msg}}</h2>
+
+    number修饰符:
+        默认情况下,在输入框中无论我们输入的是字母还是数字,都会被
+        当做字符串类型进行处理。
+        但是如果我们希望处理的是数字类型,那么最好直接将内容当做数
+        字处理。
+        number修饰符可以让在输入框中输入的内容自动转成数字类型:
+    trim修饰符:
+        如果输入的内容首尾有很多空格,通常我们希望将其去除
+        trim修饰符可以过滤内容左右两边的空格
+
+MVVM设计思想
+    M(model)
+    V(view)
+    VM(View-Model)
+
+Vue如何处理事件
+    v-on指令用法  v-on（事件监听）
+    <input type='button v-on:click='num++'/>
+    v-on简写形式
+    <input type='button'@click='num++'/>
+
+    v-on的修饰符使用 ：
+        .stop      @click.stop  阻止冒泡
+        .prevent    @click.prevent  组织默认事件
+        .{keyCode|keyAlias} 只当事件是从特定键触发时才触发回调
+        .native     监听组件根元素的原生事件
+        .once       只触发一次回调
+事件函数的调用方式
+
+    直接绑定函数名称
+    <button v-on:click='say'>Hello</button>
+    调用函数
+    <button v-on:click='say()'>Say hi</button>
+
+事件函数参数传递
+    普通参数和事件对象
+    <button v-on:click='say("hi",$event)'>Say hi</button>
+    1、如果事件直接绑定函数名称，那么默认会传递事件对象作为事件函数的第一个参
+    2、如果事件绑定函数调用，那么事件对象必须作为最后一个参数显示传递
+
+
+
+事件修饰符
+    .stop组织冒泡
+    <a v-on:click.stop="handle">跳转</a>
+    .prevent阻止默认行为
+    <a v-on:click.prevent="handle">跳转</a>
+
+按键修饰符
+    .enter回车键
+    <input v-on:keyup.enter='submit'>
+    .delete 删除键
+    <input v-on:key.delete='handle'>
+
+属性绑定
+    Vue如何动态处理属性   动态绑定属性
+    v-bind指令用法
+    <a v-bind:href='url'>跳转</a>
+    缩写形式
+    <a :href='url'></a>
+
+Vue中使用v-model指令来实现表单元素和数据的双向绑定。
+v-model的低层实现原理分析
+    <input type="text" v-model="msg">
+    <h2>{{msg}}</h2>
+    <input v-bind:value="msg" v-on:input="msg=$event.target.value">
+    <h2>{{msg}}</h2>
+
+样式绑定(":" 是"v-bind:"的缩写)
+class样式处理
+    对象语法
+    <div v-bind:class="{active:isActive}"></div>
+    数组语法
+    <div v-bind:class="[activeClass,errorClass]"></div>
+样式绑定相关语法细节
+    1.对象绑定和数组绑定可以结合使用 <div v-bind:class="[activeClass,errorClass,{test:isTest}]"></div>
+    2.class绑定的值可以简化操作
+    3.默认的class如何处理
+
+style样式处理
+    对象语法
+    <div v-bind:style="{color:activeColor,fontSize:fontSize}"></div>
+    <div v-bind:style="[baseStyles,overridingStyles]"></div>
+
+分支循环结构
+    v-if/v-else/v-else-if/v-show
+v-if与v-show的区别
+    当条件为false时，包含v-if指令的元素， 根本就不会存在dom中
+     v-show:当条件为false时，v-show只是给我们的元素添加一个行内样式: display: none:
+
+    v-if控制元素是否渲染到页面
+    v-show控制元素是否显示（已经渲染到了页面）
+
+    当需要在显示与隐藏之间切片很频繁时,使用v-show
+    当只有一次切换时,通过使用v-if
+
+
+    // splice作用: 删除元素/插入元素/替换元素
+    //删除元素:第二个参数传入你要删除几个元素(如果没有传,就删除后面所有的元素)
+    //替换元素:第二个参数，表示我们要替换几个元素，后面是用于替换前面的元素
+    //插入元素:第二个参数，传入0，并且后面跟上要插入的元素
+    // splice(start)
+    // splice(start):
+    // this.letters.splice(1, 3,'x' )
+    // this.letters.splice(1, 0,'x')
+
+数组中哪些方法是响应式的
+
+
+循环结构
+    v-for遍历数组
+    <li v-for='item in list'>{{item}}</li>
+    <li v-for='(item,index)in list'>{{item}}+'---'+{{index}}</li>
+    key的作用：帮助Vue区分不同的元素，从而提高性能
+    vue在处理dom元素的时候，要区分出兄弟节点是不一样的  给每一个节点标注唯一标识
+    <li :key='item.id' v-for='(item,index)in list'>{{item}}+'---'{{index}}</li>
+    v-for遍历对象
+    <div v-for='{value,key,index} in object'></div>  //(属性值，属性名，索引)
+    v-if和v-for结合使用
+    <div v-if='value==12' v-for='(value,key,index) in object'></div>
+
+声明式编程
+    模板的结构和最终显示的效果一致

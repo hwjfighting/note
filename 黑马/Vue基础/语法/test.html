@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <ul>
+           <li v-for="(item,index) in movies" @click="change(index)" :class="currentIndex===index ? 'active' : ''">{{item}}</li>
+       </ul>
+
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const app=new Vue({
+            el:'#app',
+            data:{
+                currentIndex:0,
+                movies:['海贼王','火影忍者','进击的巨人','东京食尸鬼'],
+
+            },
+            methods:{
+              change:function (index) {
+                   this.currentIndex=index;
+              }
+            }
+        });
+
+        const name='why';
+        const age=18;
+        const height=1.6;
+        //ES5的写法
+        const obj={
+            name:name,
+            age:age,
+            height:height
+        };
+        //ES6的写法
+        const obj2={
+            name,
+            age,
+            height
+        };
+        console.log(obj2);
+
+        function f() {
+            return{
+                name:'hhh'
+            }
+        }
+        let o1=f();
+        let o2=f();
+        let o3=f();
+        console.log(o1);
+
+        const o={
+            name:'hhh'
+        };
+        function f1() {
+          return o;
+        }
+
+        let oo1=f1();
+        let oo2=f1();
+        console.log(oo1===oo2)
+
+    </script>
+</body>
+</html>

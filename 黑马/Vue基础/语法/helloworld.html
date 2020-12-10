@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*属性选择器*/
+        [v-cloak]{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <label>
+            <input type="text" v-model.lazy="msg">
+        </label>
+        <h2>{{msg}}</h2>
+        <hr>
+        <!--插值表达式 ：1.将数据填充到HTML标签中 2.插值表达式支持基本的计算操作-->
+       <div v-cloak>{{msg}}</div>
+       <div v-cloak>{{1+2}}</div>
+       <div v-text="msg"></div>
+        <div v-html="msg1"></div>
+        <div v-pre>{{msg}}</div>
+        <!--v-once的使用场景：如果显示的信息后续不需要再修改，可以使用v-once 可以一提高性能-->
+        <div v-once>{{info}}</div>
+        <div>
+            <input type="text" v-model="msg">
+        </div>
+        <div>{{num}}</div>
+        <div v-on:click="handle0">
+            <!--<button v-on:click="num++">点击</button>-->
+            <!--<button @click="num++">点击1</button>-->
+            <button v-on:click.stop="handle">点击2</button>
+            <!--<button @click="handle(123,$event)">点击3</button>-->
+        </div>
+        <div>
+            <a href="http://www.baidu.com" v-on:click.prevent="handle2">百度</a>
+        </div>
+        <hr>
+        <input type="text" v-model="msg">
+        <h2>{{msg}}</h2>
+        <input type="text" :value="msg" @input="msg=$event.target.value">
+        <h2>{{msg}}</h2>
+        <hr>
+        <label for="male">
+            <input type="radio" id="male" value="男" v-model="sex">男
+        </label>
+        <label for="female">
+            <input type="radio" id="female" value="女"  v-model="sex">女
+        </label>
+        <h2>选中的性别为：{{sex}}</h2>
+        <hr>
+        <select name="" id="" v-model="fruit" multiple> <!--multiple 可以选择多个-->
+            <option value="香蕉">香蕉</option>
+            <option value="苹果">苹果</option>
+            <option value="猕猴桃">猕猴桃</option>
+            <option value="橘子">橘子</option>
+        </select>
+        <h2>选中的水果为：{{fruit}}</h2>
+        <hr>
+        <label  v-for="item in hobbies" >
+            <input type="checkbox" :value="item"  v-model="hobby">{{item}}
+        </label>
+        <h2>您的爱好是：{{hobby}}</h2>
+
+
+    </div>
+    <script></script>
+    <script type="text/javascript" src="../vue.js"></script>
+    <script type="text/javascript">
+        /*
+        Vue的基本使用步骤
+        1.需要提供标签用于填充数据
+        2.引入vue.js库文件
+        3.可以使用vue的语法做功能了
+        4.把Vue提供的数据填充到标签里面
+         */
+        var vm=new Vue({
+            //el:元素的挂载位置（值可以是CSS选择器或者DOM元素）
+            el:'#app',
+            //data:模型数据（值是一个对象）
+            data:{
+                msg:'hello Vue',
+                msg1:'<h1>HTML</h1>',
+                info:'不能变',
+                num:0,
+                sex:'男',
+                fruit:'',
+                hobby:[],
+                hobbies:['篮球','足球','乒乓球']
+            },
+            methods:{
+                handle0:function(){
+                    this.num++;
+                },
+                handle: function (event) {
+                    //这里的this是Vue的实例对象
+                    // console.log(this===vm);
+                  /*  this.num++;
+                    console.log(p);
+                    console.log(event.target.tagName);*/
+                  //阻止冒泡
+                  //   event.stopPropagation();
+                },
+                handle2:function (event) {
+                    //阻止默认行为
+                    // event.preventDefault();
+                }
+            }
+        });
+        /*
+        指令的本质就是自定义属性
+        指令的格式：以v-开始（比如：v-cloak）
+        1.v-cloak指令用法
+         1.提供样式
+         [v-cloak]{
+            display:none;
+         }
+         2.在在插值表达式所在的标签中添加v-cloak指令
+
+          差值表达式存在的问题：“闪动”
+          如何解决该问题：使用v-cloak指令
+          解决该问题的原理：先通过样式隐藏内容，然后在内存中进行值的替换，替换好之后再显示最终的结果
+         */
+    </script>
+
+
+</body>
+</html>

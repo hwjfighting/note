@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active{
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+        .error{
+            background-color: orange;
+        }
+        .test{
+            color: #9b0d5f;
+        }
+        .base{
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <form action="">
+            <div>
+                用户：<input placeholder="" type="text" v-model="uname" v-on:keyup.delete="clearContent">
+            </div>
+            <div>
+                密码：<input placeholder="" type="text" v-model="pwd" v-on:keyup.enter="handleSubmit">
+            </div>
+            <div>
+                <input type="button" v-on:click="handleSubmit" value="提交">
+            </div>
+        </form>
+    </div>
+    <div id="app1">
+        <div>{{msg}}</div>
+        <input type="text" placeholder="" v-bind:value="msg" v-on:input='handle1' >
+        <input type="text" placeholder="" v-bind:value="msg" v-on:input="msg=$event.target.value">
+    </div>
+    <!--<div id="app2">-->
+        <!--<div class="base" v-bind:class="objClasses">have a try</div>-->
+        <!--<div v-bind:class="objClasses"></div>-->
+        <!--<div v-bind:class="arrClasses"></div>-->
+        <!--&lt;!&ndash;<div v-bind:class="{active:isActive}"></div>&ndash;&gt;-->
+        <!--<div v-bind:class='[activeClass,errorClass,,{test:isTest}]'>测试样式</div>-->
+        <!--<button v-on:click="handle">切换</button>-->
+    <!--</div>-->
+
+    <script  type="text/javascript" src="../vue.js"></script>
+    <script>
+        var nm=new Vue({
+            el:'#app',
+            data:{
+                uname:" 名字",
+                pwd:"密码"
+            },
+            methods:{
+                handleSubmit:function () {
+                    console.log(this.uname,this.pwd);
+
+                },
+                clearContent:function () {
+                  this.uname=" ";
+                }
+            }
+        });
+        /*
+        v-model指令的本质
+         */
+        var vm=new Vue({
+            el:'#app1',
+            data:{
+                msg:"hello"
+            },
+            methods: {
+                handle1:function (event) {
+                    //使用输入域中的最新数据覆盖原来的数据
+                    this.msg=event.target.value;
+                }
+            }
+
+        });
+
+        var vm2=new Vue({
+            el:'#app2',
+            data:{
+                // isActive:true
+                activeClass:'active',
+                errorClass:'error',
+                isTest:true,
+                arrClasses:['active','error'],
+                objClasses:{
+                    active:true,
+                    error:true
+                }
+            },
+            methods:{
+              handle: function () {
+                    // this.isActive=!this.isActive
+                  // this.activeClass=" "
+                  this.objClasses.error=false;
+                }
+            }
+        });
+
+        var vm3=new Vue({
+            el:'#app3',
+            data:{
+                fruits:['apple','orange','banana']
+            }
+        })
+
+
+    </script>
+
+
+</body>
+</html>

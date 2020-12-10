@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for='item in fruits'>{{item}}</li>
+            <li v-for="(item,index) in fruits">{{item+"---"+index}}</li>
+            <li :key='index' v-for="(item,index) in myFruits">
+                <span>{{item.ename}}</span>
+                <span>===</span>
+                <span>{{item.cname}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <script  type="text/javascript" src="../vue.js"></script>
+    <script type="text/javascript">
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                fruits:['apple','orange','banana'],
+                myFruits:[{
+                    ename:'apple',
+                    cname:'苹果'
+                },{
+                    ename:'orange',
+                    cname:'橘子'
+                },{
+                    ename:'banana',
+                    cname:'香蕉'
+                }]
+            }
+        })
+    </script>
+</body>
+</html>

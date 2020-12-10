@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .tab ul{
+            overflow: hidden;
+        }
+        .tab ul li{
+            box-sizing: border-box;
+            float: left;
+            width: 100px;
+            height: 45px;
+            list-style: none;
+            text-align: center;
+            line-height: 45px;
+            border-top: 1px solid blue;
+            border-right: 1px solid blue;
+            cursor: pointer;
+        }
+        .tab ul li:first-child{
+            border-left: 1px solid blue;
+        }
+        .tab ul li.active{
+            background-color: cyan;
+        }
+        .tab div{
+            width: 500px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+            border: 1px solid blue;
+            display: none;
+        }
+        .tab div.current{
+            display: block;
+
+        }
+        img{
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="tab">
+            <ul>
+                <li v-on:click="change(index)" v-bind:class='currentIndex===index?"active":""' :key="item.id" v-for="(item,index) in list">{{item.title}}</li>
+            </ul>
+            <div v-bind:class='currentIndex===index?"current":""' :key="item.id" v-for="(item,index) in list">
+                <img :src="item.path" alt="">
+            </div>
+
+        </div>
+
+    </div>
+    <script type="text/javascript" src="../vue.js"></script>
+    <script>
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                currentIndex:0,//选项卡当前的索引
+                list:[{
+                    id:1,
+                    title:'green',
+                    path:'../images/1.jpeg'
+                },{
+                    id:2,
+                    title:'orange',
+                    path:'../images/2.jpeg'
+                },{
+                    id:3,
+                    title:'red',
+                    path:'../images/3.jpeg'
+                }]
+            },
+            methods:{
+                change:function (index) {
+                    this.currentIndex=index;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
