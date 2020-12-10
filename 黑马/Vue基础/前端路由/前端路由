@@ -1,0 +1,291 @@
+路由的基本概念与原理
+    路由是一个比较广义和抽象的概念，路由的本质就是对应关系
+    在开发中，路由分为：后端路由和前端路由
+    后端路由：根据不同的用户URL请求，返回不同的内容
+    本质：URL请求地址与服务器资源之间的对应关系
+
+    SPA（Single Page Application）
+    后端渲染（存在性能问题）
+    Ajax前端渲染（前端渲染提高性能，但是不支持浏览器的前进后退操作）
+    SPA 单页面应用程序：整个网站只有一个页面，内容的变化通过Ajax局部更新实现，同时支持浏览器地址栏的前进和后退操作
+    SPA 实现原理之一：基于URL地址的hash（锚链接）（hash的变化会导致浏览器记录访问历史的变化，但是hash的变化不会触发新的URL请求）
+    在实现SPA过程中，最核心的技术点就是前端路由
+
+    后端路由：url请求地址与服务器资源的对应关系
+
+    前端路由 概念：根据不同的用户事件，显示不同的页面内容
+             本质：用户事件与事件处理函数之间的对应关系
+             前端路由负责事件监听，触发事件函数渲染不同内容
+     实现简易的前端路由
+        基于URL的hash实现（点击菜单的时候改变URL的hash，根据hash的变化控制组件的切换）
+
+        //window的onhashchange事件，根据获取得到的最新的hash值，切换要显示的组件的名称
+        window.onhashchange=function(){
+            //通过location.hash获取到最新的hash值
+        }
+    ■URL 的hash
+        URL的hash也就是锚点(#),本质上是改变window.location的href属性.
+        我们可以通过直接赋值location.hash来改变href,但是页面不发生刷新
+    ■HTML5的history模式: pushState 修改url 网页不会刷新  history push和back的操作相当于入栈和出栈  会保留很多历史记录
+    ■HTML5的history模式: replaceState  替换url 不能返回
+    HTML5的history模式: go    上面只演示了三个方法
+                              因为history.back()等价于history.go(-1)
+                              history.forward()则等价于history.go(1)
+                              这三个接口等同于浏览器界面的前进后退。
+
+
+
+
+
+
+Vue Router
+    vue-router是基于路由和组件的
+    路由用于设定访问路径,将路径和组件映射起来.
+    在vue-router的单页面应用中,页面的路径的改变就是组件的切换.
+
+    Vue Router是Vue.js官方的路由管理器
+    他和Vue.js的核心深度集成，可以非常方便的用于SPA应用程序的开发
+    Vue Router包含的功能：
+        支持HTML5历史模式或hash模式
+        支持嵌套路由
+        支持路由参数
+        支持编程式路由
+        支持命名路由
+    基本使用步骤：
+        因为我们已经学习了webpack,后续开发中我们主要是通过工程化的方式进行开发的.
+        所以在后续,我们直接使用npm来安装路由即可.
+        步骤一:安装vue-router
+        ➢npm install vue-router --save
+        步骤二:在模块化工程中使用它(因为是一一个插件,所以可以通过Vue.use()来安装路由功能)
+        ➢第一步:导入路由对象,并且调用Vue.use(VueRouter)
+        ➢第二步:创建路由实例,并且传入路由映射配置
+        ➢第三步:在Vue实例中挂载创建的路由实例
+
+        使用vue-router的步骤:
+            第一步:创建路由组件
+            第二步:配置路由映射:组件和路径映射关系
+            第三步:使用路由:通过<router-link>和<router-view>
+
+
+        1.引入相关的库文件
+        2.添加路由链接
+        3.添加路由填充位
+        4.定义路由组件
+        5.配置路由规则并创建路由实例
+        6.把路由挂载到Vue根实例中
+          <!--添加路由链接-->
+            <router-link to="/user">user</router-link>
+             //router-link会被默认渲染为一个a标签
+             //to属性会被默认渲染为a标签中的href属性
+             //to属性的值会被默认渲染为#开头的hash地址
+            ·<router-link>还有一些其他属性:
+                    tag: tag可以指定<router-link>之后渲染成什么组件,比如上面的代码会被渲染成一个<li>元素, 而不是<a>
+                    replace: replace不会留下history记录,所以指定replace的情况下，后退键返回不能返回到上一个页面中
+
+          <!--添加路由填充位-->
+            <router-view></router-view>
+          // 定义路由组件
+            const user={
+                template:'<h1>User 组件</h1>'
+            };
+          //创建路由实例对象
+          var router=new VueRouter({
+            //routes 是路由规则数组
+            routes：[
+                //每个路由规则都是一个配置对象，其中至少包含path和component两个属性
+                //path表示当前路由规则匹配的hash地址
+                //component表示当前路由规则对应要展示的组件
+                {path:'/user',component:User},
+                {path:'/register',component:register},
+            ]
+          })
+          //把路由挂载到Vue根实例中
+          new Vue({
+            el:'#app',
+            //为了能够让路由规则生效，必须把路由对象挂载到vue实例对象中
+            router
+          });
+
+路由重定向
+    路由重定向指的是：用户在访问地址A的时候，强制用户跳转到地址C，从而展示指定的组件页面
+    通过路由规则的redirect属性，指定一个新的路由地址，可以很方便的设置路由的重定向
+    var router=new VueRouter({
+        routes:[
+            //其中，path表示被重定向的原地址，redirect表示将要被重定向的新地址
+            {path:'/',redirect:'/user'}
+            {path:'/user',component:User},
+            {path:'/register',component:register},
+        ]
+    })
+
+通过代码的方法修改vue-router
+    1.this.$router.push('/user')
+    2.this.$router.replace('/user')
+
+嵌套路由用法
+    嵌套路由功能分析
+        点击父级路由链接显示模板内容
+        模板内容中又有子级路由链接
+        点击子级路由链接显示子级模板内容
+
+动态匹配路由的基本用法
+    ■在某些情况下 , -一个页面的path路径可能是不确定的,比如我们进入用户界面时,希望是如下的路径:
+        /user/aaa或/user/bbbb
+        除了有前面的/user之外,后面还跟上了用户的ID
+        这种path和Component的匹配关系,我们称之为动态路由(也是路由传递数据的一种方式)。
+        <router-link :to="' /user/'+userId">用户< /router-link>
+    $route 拿到的是正处于活跃的路由
+
+    应用场景：通过动态路由参数的模式进行路由匹配
+    var router=new VueRouter({
+        routes:[
+            //动态路径参数 以冒号开头
+            {path:'/user/:id',component:User}
+        ]
+    })
+
+    const User={
+        //路由组件中通过$route.params获取路由参数
+        template:'<div>User{{$route.params}}</div>'
+    }
+路由懒加载
+    ■官方给出了解释:
+        口当打包构建应用时, Javascript包会变得非常大,影响页面加载。
+        口如果我们能把不同路由对应的组件分割成不同的代码块,然后当路由被访问的时候才加载对应组件,这样就更
+        加高效了
+    ■官方在说什么呢?
+        首先,我们知道路由中通常会定义很多不同的页面.
+        这个页面最后被打包在哪里呢? -般情况下，是放在一个js文件中.
+        口但是,页面这么多放在一个js文件中, 必然会造成这个页面非常的大.
+        口如果我们一次性从服务 器请求下来这个页面,可能需要花费一定的时间, 甚至用户的电脑上还出现了短暂空白的
+        情况.
+        口如何避免这种情况呢?使用路由懒加载就可以了.
+
+    路由懒加载做了什么?
+        路由懒加载的主要作用就是将路由对应的组件打包成一个个的js代码块.
+        只有在这个路由被访问到的时候,才加载对应的组件
+    const routes =[
+    {
+        path: '/home' ,
+        component: () => import(' ../cqxponents/Home )
+    },
+    {
+        path: '/about',
+        component: () => import(' ../components/About )
+    },
+    ];
+
+
+
+路由组件传递参数
+    传递参数的方式：
+        传递参数主要有两种类型: params和query
+        params的类型:
+            配置路由格式: /router/:id
+            传递的方式:在path后面跟上对应的值
+            传递后形成的路径: /router/123, /router/abc
+        query的类型:
+            配置路由格式: /router,也就是普通配置
+            传递的方式:对象中使用query的key作为传递方式
+            传递后形成的路径: /router?id=123, /router?id=abc
+            <router-link :to="{path:' /profile', query: {name: 'why', age: 18, height:
+            1.88}}">
+            档案</router-link>
+
+
+    $route与对应路由形成高度耦合，不够灵活，所以可以使用props将组件和路由解耦
+    Props的值为布尔类型
+        const router=newVueRouter({
+            routes:[
+                //如果props被设置为true，route，params 将会被设置为组件属性
+                {path:'/user/:id',component:User,props:true}
+            ]
+        })
+        const User={
+            props:{'id'},//使用props接收路由参数
+            template:'<div>用户ID：{{id}}</div>'//使用路由参数
+        }
+    props的值为对象类型
+        const router=new VueRouter({
+            routes:[
+                //如果props是一个对象，他会被按原样设置为组件属性
+                {path:'/user/:id',component:User,props:{uname:'lisi',age:12}}
+            ]
+        })
+        const User={
+            props:['uname','age'],
+            template:'<div>用户信息：{{uanme+'----'+age}}</div>'
+        }
+    props的值为函数类型
+      const router=new VueRouter({
+            routes:[
+                //如果props是一个函数，则这个函数接收route对象为自己的形参
+                path:'/user/:id',
+                component:user,
+                props:route=>({uname:'lisi',age:12,id:route.params.id})},
+            ]
+        })
+        const User={
+            props:['id','uname','age'],
+            template:'<h1>User 组件--用户id为：{{id}}--姓名为：{{uname}}--年龄为：{{age}}</h1>'
+        }
+
+命名路由的配置规则
+    伪类更加方便的表示路由的路径。可以给路由规则起一个别名，即为“命名路由”
+    const router=new VueRouter({
+        routes:{
+            {
+                path:'/user/id',
+                name:'user',
+                component:User
+            }
+        }
+    })
+    <router-link :to="{name:'user',params:{id:123}}">User</router-link>
+    router.push({name:'user',params:{id:123}})
+
+页面导航的两种方式
+    ·声明式导航：通过点击链接实现导航的方式，叫做声明式导航
+    例如：普通网页中的<a></a>链接或vue中的<router-link></router-link>
+    ·编程式导航：通过调用JavaScript形式的API实现导航的方式，叫做编程式导航
+    例如普通网页中的location.href
+    常用的编程式导航API如下：
+        this.$router.push('hash地址')
+        this.$router.go(n)
+        const User={
+            template:'<div><button @click="goRegister">跳转到注册页面</button></div>',
+            //用编程的方式控制路由跳转
+            this.$router.push('/register');
+        }
+    ·router.push()方法的参数规则
+      //字符串（路径名称）
+      router.push('/home')
+      //对象
+      router.push({path:'/home'})
+      //命名的路由（传递参数）
+      router.push({name:'/user',params:{userId:123}})
+      //带查询参数，变成/register?uname=lisi
+      router.push({path:'/register',query:{uname:'lisi'}})
+
+导航守卫
+    路由导航守卫控制访问权限
+    如果用户没有登录，但是直接通过URL访问特定页面，需要重新导航到登录页面。
+    //为路由对象，添加beforeEach导航守卫
+    router.beforeEach((to, from, next) => {
+    //如果用户访问的登录预，直接放行
+    if (to.path === '/login') return next()
+    //从sessionStorage 中获取到保存的token 值
+    const tokenStr = window.sessionStorage.getItem('token')
+    //没有token,强制跳转到登录页
+    if (!tokenStr) return next('/login')
+        next ()
+    })
+
+
+keep-alive是Vue内置的一个组件,可以使被包含的组件保留状态,或避免重新渲染。
+    它们有两个非常重要的属性:
+    include -字符串或正则表达,只有匹配的组件会被缓存
+    exclude -字符串或正则表达式,任何匹配的组件都不会被缓存
+
+router-view也是一个组件 ,如果直接被包在keep-alive里面,所有路径匹配到的视图组件都会被缓存:
+

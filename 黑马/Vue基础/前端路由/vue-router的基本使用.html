@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--添加路由链接-->
+    <!--router-link是Vue中提供的标签，默认会被渲染为a标签-->
+    <router-link to="/user">user</router-link>
+    <router-link to="/register">register</router-link>
+    <!--添加路由填充位  组件内容显示的位置-->
+    <router-view></router-view>
+</div>
+</body>
+<script src="../vue.js"></script>
+<script src="../vue-router.js"></script>
+<script>
+    // 定义路由组件
+    const user={
+        template:'<h1>User 组件</h1>'
+    };
+    const register={
+        template: '<h1>Register 组件</h1>'
+    };
+    //创建路由实例对象
+    var router=new VueRouter({
+        //routes 是路由规则数组  配置路由和组件之间的映射关系   一个映射关系就是一个对象
+        routes:[
+            {
+              path:'',
+                //重定向 当path为''时，将path重定向为'/user'
+              redirect:'/user',
+            },
+            {path:'/user',component:user},
+            {path:'/register',component:register},
+        ],
+        // mode:'history'  html5的history模式不再使用哈希值
+    });
+   const vm=new Vue({
+       el:'#app',
+       data:{
+
+       },
+       //挂载实例对象
+       router:router,
+       methods:{
+
+       }
+   })
+</script>
+</html>

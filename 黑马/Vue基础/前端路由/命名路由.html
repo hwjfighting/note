@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--添加路由链接-->
+    <!--router-link是Vue中提供的标签，默认会被渲染为a标签-->
+    <router-link to="/user/1">user1</router-link>
+    <router-link to="/user/2">user2</router-link>
+    <router-link :to="{name:'user',params:{id:3}}">user3</router-link>
+    <router-link to="/register">register</router-link>
+    <!--添加路由填充位-->
+    <router-view></router-view>
+</div>
+</body>
+<script src="../vue.js"></script>
+<script src="../vue-router.js"></script>
+<script>
+    // 定义路由组件
+    const user={
+        props:['id','uname','age'],
+        template:'<h1>User 组件--用户id为：{{id}}--姓名为：{{uname}}--年龄为：{{age}}</h1>'
+    };
+    const register={
+        template: '<h1>Register 组件</h1>'
+    };
+    //创建路由实例对象
+    var router=new VueRouter({
+        //routes 是路由规则数组
+        routes:[
+            {
+                //命名路由
+                name:'user',
+                path:'/user/:id',
+                component:user,
+                props:route=>({uname:'lisi',age:12,id:route.params.id})},
+            {path:'/register',component:register},
+        ]
+    });
+    const vm=new Vue({
+        el:'#app',
+        data:{
+
+        },
+        //挂载实例对象
+        router:router,
+        methods:{
+
+        }
+    })
+</script>
+</html>
