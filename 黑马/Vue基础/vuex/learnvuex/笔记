@@ -1,0 +1,246 @@
+vuex是做什么的？
+官方解释: Vuex是一个专为Vue.js应用程序开发的状态管理模式。
+口它采用集中式存储管理应用的所有组件的状态,并以相应的规则保证状态以一种可预测的方式发生变化。
+口Vuex 也集成到Vue的官方调试工具devtools extension ,提供了诸如零配置的time-travel调试、状态快照导入导出等高级调试
+功能。
+状态管理到底是什么?
+0状态管理模式、集中式存储管理这些名词听起来就非常高大上,让人捉摸不适。
+0实,你可以简单的将其看成把需要多个组件共享的变量全部存储在一个对象里面。
+0然后,将这个对象放在顶层的Vue实例中,让其他组件可以使用。
+0那么,多个组件是不是就可以共享这个对象中的所有变量属性了呢?
+等等,如果是这样的话,为什么官方还要专i ]出一个插件Vuex呢 ?难道我们不能自己封装一个对象来管理吗 ?
+口当然可以,只是我们要先想想VueJS带给我们最大的便利是什么呢?没错,就是响应式。
+0如果你自己封装实现一个对象能不能保证它里面所有的属性做到响应式呢?当然也可以,只是自己封装可能稍微麻烦-些。
+0不用怀疑, Vuex就是为了提供这样一个在多 个组件间共享状态的插件,用它就可以了。
+
+单一状态树
+  如果你的状态信息是保存到多个Store对象中的,那么之后的管理和维护等等都会变得特别困难。
+  所以Vuex也使用了单-状态树来管理应用层级的全部状态。
+  单一状态树能够让我们最直接的方式找到某个状态的片段,而且在之后的维护和调试过程中,也可以非常方便的管理和维护。
+
+Mutation的响应规则
+Vuex的store中的state是响应式的,当state中的数据发生改变时, Vue组件会自动更新.
+这就要求我们必须遵守一些Vuex对应的规则:
+  0提前在store中初始化好所需的属性.
+  0当给state中的对象添加新属性时,使用下面的方式:
+  ➢式式一:使用Vue.set(obj, 'newProp', 123)
+  ➢方式二:用新对象给旧对象重新赋值
+
+通常情况下, Vuex要求我们Mutation中的方法必须是同步方法.
+  0主要的原因是当我们使用devtools时, 可以devtools可以帮助我们捕捉mutation的快照
+  0但是如果是异步操作,那么devtools将不能很好的追踪这个操作什么时候会被完成.
+
+但是某些情况,我们确实希望在Vuex中进行一些异步操作, 比如网络请求,必
+然是异步的.这个时候怎么处理呢?
+Action类似于Mutation,但是是用来代替Mutation进行异步操作的.
+
+Module是模块的意思,为什么在Vuex中我们要使用模块呢?
+  ·Vue使用单一状态树，那么也意味着很多状态都会交给
+  Vuex来管理.
+  ·当应用变得非常复杂时,store对象就有可能变得相当臃
+  肿.
+  ·为了解决这个问题, Vuex允许我们将store分割成模块
+  (Module),而每个模块拥有自己的state、mutation:
+  action、getters等
+
+=====================================================
+组件之间共享数据的方式
+父向子传值：v-bind属性绑定
+子向父传值：v-on 事件绑定
+兄弟组件之间共享数据：EventBus
+  ·$on 接收事件的那个组件
+  ·$emit 发送数据的那个组件
+
+Vuex是什么？：Vuex实现组件全局状态(数据)管理的一种机制， 可以方便的实现组件之间数据的共享
+
+使用Vuex统一管理状态的好处：
+①能够在 vuex中集中管理共享的数据,易于开发和后期维护
+②能够高效地实现组件之 间的数据共享,提高开发效率
+③存储在vuex中的数据都是响应式的，能够实时保持数据与页面的同步
+
+Vuex基本使用：
+1.安装vuex依赖包
+  npm install vuex --save
+2.导入vuex包
+  import Vuex from 'vuex '
+  Vue .use (Vuex)
+3.创建store对象
+  const store = new Vuex.store ({
+    // state 中存放的就是全局共享的数据
+    state: { count: 0 }
+  })
+4.将store对象挂载到vue实例中
+  new Vue ({
+    el: ' #app',
+    render: h => h(app)，
+    router,
+    // 将创建的共享 数据对象，挂载到Vue实例中
+    //所有的组件，就可以直接从store中获取全局的数据了
+    store
+  })
+
+
+Vuex的核心概念：
+State，
+Mutation，
+Action，
+Getter
+
+·State
+  State提供唯一的公共数据源, 所有共享的数据都要统放到Store的State中进行存储。
+    //创建store数据源，提供唯一公共数据
+    const store = new Vuex.Store ({
+      state:{ count: 0 }
+    })
+  组件访问State中数据的第一种方式:
+    this.$store.state.全局数据名称
+
+  组件访问State中数据的第二种方式:
+  // 1.从vuex中按需导入mapState 函数
+  import { mapState } from 'vuex'
+  通过刚才导入的mapState函数,将当前组件需要的全局数据,映射为当前组件的computed计算属性:
+  // 2.将全局数据，映射为当前组件的计算属性
+  computed: {
+    ...mapstate(['count' ])//展开运算符，把全局中的数据映射为当前组件的计算属性
+  }
+
+  在Vuex中不允许组件直接修改store里的数据
+
+·Mutation
+  Mutation于更Store中的数据。
+  ①只能通过mutation变更Store数据，不可以直接操作Store中的数据。
+  ②通过这种方式虽然操作起来稍微繁琐- -些, 但是可以集中监控所有数据的变化。
+  //定义Mutation
+  const store = new Vuex. store ({
+    state: {
+    count: 0
+    mutations: {
+      add(state) {
+        //变更状态
+        state . count++
+      }
+    }
+  })
+  //触发mutation
+  methods:{
+  handle1() {
+    //触发
+    mutations的第一种方式
+    this.$store.commit('add')
+  }
+
+  //可以在触发mutation时传递参数
+  //定义Mutation
+  const store = new Vuex.store ({
+    state: {
+      count: 0
+    },
+    mutations: {
+      addN (state, step) {
+      // 变更状态
+      state.count += step
+    }
+  })
+
+  //触发mutation
+  methods: {
+    handle2() {
+      //在调用commit 函数，
+      //触发mutations 时携带参数
+      this.$store.commit('addN', 3)
+    }
+  }
+
+
+  this.$store.commit()是触发mutations的第一种方式，触发mutations的第二种方式:
+  // 1.从vuex 中按需导入mapMutations 函数
+  import { mapMutations } from 'vuex'
+  通过刚才导入的mapMutations函数,将需要的mutations函数，映射为当前组件的methods方法
+  // 2.将指定的mutations 函数，映射为当前组件的methods 函数
+  methods: {
+    ...mapMutations (['add', 'addN' ]),
+    btnHandler1(){
+      this.sub
+    }
+  }
+
+·Action
+  Action于处理异步任务。
+  如果通过异步操作变更数据，必须通过Action,而不能使用Mutation,但是在Action中还是要通过触发
+  Mutation的方式间接变更数据。
+
+
+  //定义Action
+  const store = new Vuex.store({
+  //...省略其他代码
+  mutations: {
+    add(state) {
+    state.count++
+  },
+  actions: {
+    addAsync (context) {
+      setTimeout( () => {
+        context.commit('add' )
+      }，1000)
+    }
+  }
+  })
+
+
+  //触发Action
+  methods: {
+    handle() {
+      //触发actions 的第一种方式
+      this.$store.dispatch ( 'addAsync' )
+    }
+  }
+
+  触发actions异步任务时携带参数
+  //定义Action
+  const store = new Vuex.store({
+    //...省略其他代码
+    mutations: {
+      addN(state, step) {
+      state.count += step
+    },
+    actions:{
+      addNAsync (context, step) {
+        setTimeout( () => {
+          context.commit('addN', step)
+        }，1000)
+      }
+    }
+  })
+
+  this.$store.dispatch(是触发actions的第一种方式，触发actions的第二种方式:
+  // 1.从vuex中按需导入mapActions 函数
+  import { mapActions } from 'vuex '
+  通过刚才导人的mapActions函数,将需要的actions函数,映射为当前组件的methods方法:
+  // 2.将指定的 actions 函数，映射为当前组件的 methods函数
+  methods :{
+    ...mapActions([ ' addASync', 'addNASync'])
+  }
+
+
+·Getter
+  Getter于对Store中的数据进行加工处理形成新的数据。
+  ①Getter 可以对Store中已有的数据加工处理之后形成新的数据,类似Vue的计算属性。
+  ②Store 中数据发生变化，Getter 的数据也会跟着变化。
+  //定义Getter
+  const store = new Vuex.store ({
+    state: {
+      count: 0
+    },
+    getters: {
+      showNum: state => {
+      return '当前最新的数量是[ '+ state.count +' ]
+    }
+  })
+
+
+
+
+
+
+
+
