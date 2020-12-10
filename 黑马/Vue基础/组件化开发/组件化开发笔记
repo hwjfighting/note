@@ -1,0 +1,272 @@
+组件化开发思想
+组件化注册
+Vue调试工具用法
+组件间数据交互
+组件插槽
+基于组件的案例
+
+什么是组件化开发？
+人面对复杂问题的处理方式:
+    任何一个人处理信息的逻辑能力都是有限的
+    所以,当面对一个非常复杂的问题时,我们不太可能一
+    次性搞定一大 堆的内容。
+    但是,我们人有一种天生的能力,就是将问题进行拆解。
+    如果将-个复杂的问题,拆分成很多个可以处理的小问
+    题,再将其放在整体当中,你会发现大的问题也会迎刃
+    而解。
+组件化也是类似的思想:
+    如果我们将一个页面中所有的处理逻辑全部放在一
+    起，处理起来就会变得非常复杂,而且不利于后续
+    的管理以及扩展。
+    但如果,我们讲一个页面拆分成一 个个小的功能块 ,
+    每个功能块完成属于自己这部分独立的功能,那么
+    之后整个页面的管理和维护就变得非常容易了。
+
+组件化是Vue.js中的重要思想
+它提供了-种抽象,让我们可以开发出一个个独立可复用的小组件来构造我们的应用。
+任何的应用都会被抽象成一颗组件树。
+
+组件化思想的应用:
+    有了组件化的思想,我们在之后的开发中就要充分的利用它。
+    尽可能的将页面拆分成一个个小的、 可复用的组件。
+    这样让我们的代码更加方便组织和管理,并且扩展性也更强。
+
+组件的使用分成三个步骤:
+创建组件构造器 const 构造器名称=Vue.extend({template:``})
+注册组件 Vue.component('组件的标签名',构造器名称)
+使用组件。
+
+
+
+全局组件注册语法 全局组件，意味着可以在多个Vue的实例下面使用
+    Vue.component(组件名称,{
+        data:组件数据,
+        template:组件模板内容
+    })
+    //定义一个名为button-counter的新组件
+    Vue.component('button-counter',{
+        data:function(){
+            return{
+                count:0
+            }
+        },
+        template:'<button v-on:click="count++">点击了{{count}}次</button>'
+    })
+
+    <div id='app'>
+        <button-counter></button-counter>
+    </div>
+    注意事项：1.data必须是一个函数
+              2.组件模板内容必须是单个根元素
+              3.组件模板内容可以是模板字符串（ES6语法）
+
+    组件命名方式：
+    1.短横线方式
+        Vue.component('my-component',{...})
+    2.驼峰方式
+        Vue.component('MyComponent',{...})
+    如果使用驼峰式命名组件，那么在使用组件的时候，只能在字符串模板中用驼峰的方式使用组件
+    在普通的标签模板（根组件）中必须使用短横线的方式
+    ·每一个组件都需要一个唯一的根节点
+局部组件注册
+    var ComponentA={...}
+    var ComponentB={...}
+    var ComponentC={...}
+    new  Vue({
+        el:'#app'
+        components;{
+            'component-a':ComponentA,
+            'component-b':ComponentB,
+            'component-c':ComponentC,
+        }
+    })
+    局部组件只能在注册它的父组件当中使用，局部指令和局部过滤器也是只能在它的父组件中使用
+    全局注册的组件，指令，过滤器，在所有的地方都是可以使用的
+
+组件模板抽离
+组件内不可使用vue实例数据
+
+父子组件的通信
+    在上一个小节中,我们提到了子组件是不能弓|用父组件或者Vue实例的数据的。
+    但是,在开发中,往往一 些数据确实需要从上层传递到下层:
+        比如在一个页面中,我们从服务器请求到了很多的数据。
+        其中一部分数据 ,并非是我们整个页面的大组件来展示的,而是需要下面的子组件进行展示。
+        这个时候,并不会让子组件再次发送一个网络请求 ,而是直接让大组件(父组件)将数据传递给小组件(子组件)。
+    如何进行父子组件间的通信呢? Vue官方提到
+        口通过props向子组件传递数据
+        口通过事件向父组件发送消息
+    在下面的代码中,我直接将Vue实例当做父组件,并且其中包含子组件来简化代码。
+props的基本用法
+    在组件中,使用选项props来声明需要从父级接收到的数据。
+    props的值有两种方式:
+        方式一:字符串数组,数组中的字符串就是传递时的名称。
+        方式二:对象,对象可以设置传递时的类型,也可以设置默认值等。
+    我们说过，除了数组之外,我们也可以使用对象,当需要对props
+    进行类型等验证时,就需要对象写法了。
+    验证都支持哪些数据类型呢?
+        String
+        Number
+        Boolean
+        Array
+        Object
+        Date
+        Function
+        Symbol
+
+    子级向父级传递
+        props用于父组件向子组件传递数据,还有一种比较常 见的是子组件传递数据或事件到父组件中。
+        我们应该如何处理呢?这个时候,我们需要使用自定义事件来完成。
+        什么时候需要自定义事件呢?
+            当子组件需要向父组件传递数据时,就要用到自定义事件了。
+            我们之前学习的v-on不仅仅可以用于监听DOM事件,也可以用于组件间的自定义事件。
+        自定义事件的流程:
+            在子组件中,通过$emit(来触发事件。
+            在父组件中,通过v-on来监听子组件事件。
+        我们来看一个简单的例子:
+            我们之前做过一一个两个按钮+1和-1，点击后修改counter.
+            我们整个操作的过程还是在子组件中完成,但是之后的展示交给父组件。
+            这样,我们就需要将子组件中的counter ,传给父组件的某个属性,比如total。
+
+
+组件间数据交互
+    子组件：当你创建一个组件时，那个组件名就是子组件
+    父组件：当你创建一个Vue实例时，el需绑定div，那么这个div就是父组件
+  父组件向子组件传值
+    1.组件内部通过props接收传递过来的值
+    Vue.component('menu-item',{
+        props:['title'],            //props用于接收父组件传过来的值
+        template:'<div>{{title}}</div>'
+    })
+    2.父组件通过属性将值传递给子组件
+    <menu-item title="来自父组件的数据"></menu-item>
+    <menu-item :title="title"></menu-item>
+    props属性命名规则：
+        在props中使用驼峰形式，模板中需要使用短横线的形式 原因是因为DOM元素的属性，不存在大小写
+        字符串形式的模板中没有这个限制
+    Vue.component('menu-item',{
+        //在javascript中是驼峰式的
+        props:['menuTitle'],
+        template:'<div>{{menuTitle}}</div>'
+    })
+    在html中是短横线的方式
+    <menu-item menu-title="nihao"></menu-item>
+    props属性值类型
+        字符串 String /数值 Number/布尔值 Boolean/数组 Array/对象 Object
+    props传递数据原则，单向数据流原则
+
+ 子组件向父组件传值
+    1.子组件通过自定义事件向父组件传递信息
+    <button v-on:click='$emit("enlarge-text")'>扩大字体</button> //enlarge-text 是自定义事件的名称
+    2.父组件监听子组件的事件
+    <menu-item v-on:enlarge-text='fontSize +=0.1'></menu-item>
+    3.子组件通过自定义事件向父组件传递信息
+    <button v-on:click='$emit("enlarge-text",0.1)'>扩大字体</button>
+    4.父组件监听子组件的事件
+    <menu-item v-on:enlarge-text='fontSize +=$event'></menu-item> //通过$event接收0.1
+
+ 非父子组件间传值
+    1.单独的事件中心管理组件间的通信
+    var eventHub=new Vue()
+    2.监听事件与销毁事件
+    eventHub.$on('add-todo',addTodo)
+    eventHub.off('add-todo')
+    3.触发事件
+    eventHub.$emit('add-todo',id)
+
+    vue模板只能有一个根对象
+    所以你想要出现正常的效果，你的用一个div来或是别的标签来包裹全部的元素
+
+    父子组件的访问方式: $children
+        有时候我们需要父组件直接访问子组件，
+        子组件直接访问父组件,或者是子组件访
+        问根组件。
+        父组件访问子组件:使用$children或
+        $refs reference(引用)
+        子组件访问父组件:使用$parent
+
+
+
+组件的插槽也是为了让我们封装的组件更加具有扩展性。
+让使用者可以决定组件内部的一些内容到底展示什么。
+
+ 组件插槽的作用
+    父组件向子组件传递内容（模板内容） 之前的是数据的交互
+  1.插槽的位置 （位于子组件的模板中）
+    Vue.component('alert-box',{
+        template:`
+            <div class="demo-alert-box">
+                <strong>Error!</strong>
+                <slot><slot>
+            </div>
+        `
+    })
+   2.插槽内容
+   <alert-box>Something bad happened</alert-box>
+   如果子组件slot中有内容，在使用插槽的时候没有传递内容，会显示slot中默认的内容，如果传递了内容会覆盖原来slot中的内容
+   具名插槽用法
+   1.插槽定义
+   <div class="container">
+        <header>
+            <slot name="header"></slot>
+        </header>
+        <main>
+            <slot><slot>
+        </main>
+        <footer>
+            <slot name="footer"></slot>
+        </footer>
+   </div>
+   2.插槽内容
+   <base-layout>
+        <h1 slot="header">标题内容</h1>
+        <p>主要内容1</p>
+        <p>主要内容2</p>
+        <p slot="footer">底部内容</p>
+   </base-layout>
+  作用域插槽
+    应用场景：父组件对子组件的内容进行加工处理
+    1.插槽定义
+    <ul>
+        <li v-for="item in list" v-bind:key="item.id">
+            <slot v-bind:item="item">
+                {{item.name}}
+            </slot>
+        </li>
+    </ul>
+    2.插槽内容
+    <fruit-list v-bind:list="list">
+        <template slot-scope="slotProps"> //通过slotProps可以得到item
+            <strong v-if="slotProps.item.current">
+                {{slotProps.item.text}}
+            </strong>
+        </template>
+    </fruit-list>
+
+
+在真正学习插槽之前,我们需要先理解一个概念 :编译作用域。
+官方对于编译的作用域解析比较简单,我们自己来通过一个例子来理解这个概念:
+我们来考虑下面的代码是否最终是可以渲染出来的:
+    <my-cpn v-show= "isShow" > </my-cpn>中,我们使用了isShow属性。
+    isShow属性包含在组件中,也包含在Vue实例中。
+答案:最终可以渲染出来,也就是使用的是Vue实例的属性。
+原因：
+    官方给出了一条准则:父组件模板的所有东西都会在父级作用域内编译;
+    子组件模板的所有东西都会在子级作用域内编译。
+    而我们在使用<my-cpn v-show= "isShow"> </my-cpn>的时候,整个组
+    件的使用过程是相当于在父组件中出现的。
+    那么他的作用域就是父组件,使用的属性也是属于父组件的属性。
+    因此, isShow使用的是Vue实例中的属性,而不是子组件的属性。
+
+
+作用域插槽是slot一个比较难理解的点,而且官方文档说的又有点不清晰。
+这里,我们用一-句话对其做一个总结,然后我们在后续的案例中来体会:
+    父组件替换插槽的标签,但是内容由子组件来提供。
+例子：
+    子组件中包括一组数据,比如: pLanguages: [JavaScript', 'Python', 'Swift', 'Go', 'C++']
+    需要在多个界面进行展示:
+        某些界面是以水平方向一-展示的,
+        某些界面是以列表形式展示的,
+        某些界面直接展示- 个数组
+    内容在子组件,希望父组件告诉我们如何展示,怎么办呢?
+        利用slot作用域插槽就可以了
+

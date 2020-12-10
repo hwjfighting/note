@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0;padding: 0}
+        .container{width: 300px;height: 250px;margin: auto}
+        .title{text-align: center;font-weight: bold;height: 30px;line-height: 30px;background-color: cyan}
+        .item{height: 50px;line-height: 50px;}
+        .name,.change{float: left;margin-right: 70px}
+        .del{float: right}
+        a{text-decoration: none;display: inline-block;width: 15px;height: 15px;background-color: #eeeeee;line-height: 15px;text-align: center}
+        input{width: 50px}
+        .item:nth-child(1),.item:nth-child(2),.item:nth-child(3){border-bottom: 1px solid #6C6C6C }
+        .total{height: 30px;line-height: 30px;background-color: #6bdea7}
+        span{display: inline-block;margin-left: 150px;color: red}
+        button{width: 50px}
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-cart></my-cart>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        var CartTitle={
+            props:['uname'],
+            template:`
+                <div class="title">
+                    {{uname}}的商品
+                </div>
+            `
+        };
+        var CartList={
+            props:['list'],
+            template:`
+                 <div>
+                    <div :key="item.id" v-for="item in list" class="item">
+                        <div class="name">{{item.name}}</div>
+                        <div class="change">
+                            <a href="">-</a>
+                            <input type="text" :value="item.num" @blur="changeNum(item.id,$event)">
+                            <a href="">+</a>
+                        </div>
+                        <div class="del" @click="del(item.id)">X</div>
+                    </div>
+                </div>
+            `,
+            methods:{
+                changeNum:function (id,event) {
+                    // console.log(id,event.target.value);
+                    this.$emit("change-num",{
+                        id:id,
+                        num:event.target.value
+                    })
+                },
+                del:function (id) {
+                   //把id传递给父组件
+                    this.$emit('cart-del',id);
+                }
+
+            }
+        };
+        var CartTotal={
+            props:["list"],
+            template:`
+                <div class="total">
+                    <span>总价：{{total}}</span>
+                    <button>结算</button>
+                </div>
+            `,
+            computed:{
+                total:function () {
+                    //计算商品的总价
+                    var t=0;
+                    this.list.forEach(item=>{t +=item.price*item.num});
+                    return t;
+                }
+            }
+        };
+        //全局组件
+        Vue.component("my-cart",{
+            data:function(){
+              return {
+                  uname:'张三',
+                  list:[
+                      {id:1,name:'商品1',price:1000,num:1},
+                      {id:2,name:'商品2',price:1000,num:1},
+                      {id:3,name:'商品3',price:1000,num:1},
+                      {id:4,name:'商品4',price:1000,num:1}
+                  ]
+              }
+            },
+           template:`
+                 <div class="container">
+                        <cart-title :uname="uname"></cart-title>
+                        <cart-list @change-num="changeNum($event)" :list="list" @cart-del="delCart($event)"></cart-list>
+                        <cart-total :list="list"></cart-total>
+                 </div>
+           `,
+           components:{
+               "cart-title":CartTitle,
+               "cart-list":CartList,
+               "cart-total":CartTotal
+           },
+           methods:{
+               changeNum:function(val){
+                   // 根据子组件传递过来的数据，更新list中对应的数据
+                   // console.log(val);
+                   this.list.some(item=>{
+                       if(item.id===val.id){
+                           item.num=val.num;
+                           return true;
+                       }
+                   })
+               },
+                 delCart:function (id) {
+                     //根据id删除对应的数据
+                     //1.找到id所对应的数据的索引
+                     var index=this.list.findIndex(item=>{return item.id===id});
+                     //2.根据索引删除对应数据
+                     this.list.splice(index,1)
+                 }
+           }
+        });
+        var wm=new Vue({
+            el:"#app",
+            data:{
+                list:[
+
+                ]
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--因为HTML里不区分大小写，所以不支持驼峰，使用-连接就行了-->
+    <cpn :c-info="info" :child-message="message"></cpn>
+</div>
+<template id="cpn">
+   <div>
+       <h2>{{cInfo}}</h2>
+       <p>{{childMessage}}</p>
+   </div>
+</template>
+<script src="../vue.js"></script>
+<script>
+    const cpn={
+        template:'#cpn',
+        props:{
+            cInfo:{
+                type:Object,
+                default(){
+                    return {}
+                }
+            },
+            childMessage:{
+                type: String,
+                default(){
+                    return ''
+                }
+            }
+        }
+    };
+    const app=new Vue({
+        el:'#app',
+        data:{
+            info:{
+                name:'why',
+                age:18,
+                height:1.88
+            },
+            message:'hhhh'
+
+
+        },
+        components:{
+            cpn
+        }
+    })
+</script>
+</body>
+</html>

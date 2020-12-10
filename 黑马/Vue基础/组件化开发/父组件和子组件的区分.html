@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <my-con1></my-con1>
+    <my-con2></my-con2>
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    const cpnC1=Vue.extend({  //子组件
+        template:`
+           <div>
+                <h2>我是标题1</h2>
+                <p>我是内容1</p>
+           </div>
+        `
+    });
+    const cpnC2=Vue.extend({ //子组件
+        template:`
+           <div>
+                <h2>我是标题2</h2>
+                <p>我是内容2</p>
+                <my-con1></my-con1>
+           </div>
+        `,
+        components:{
+            "my-con1":cpnC1
+        }
+    });
+    // Vue.component('my-con1',cpnC1);
+    Vue.component("my-con2",cpnC2);
+
+
+    const app=new Vue({ //根组件
+        el:"#app",
+        data:{},
+        components: {
+            "my-con1":cpnC1,
+            "my-con2":cpnC2
+        }
+
+    })
+
+</script>
+</body>
+</html>
