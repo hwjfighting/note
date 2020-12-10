@@ -1,0 +1,18 @@
+加上type= " module"不会有命名冲突的问题
+<script src=" aaa.js" type= " module"></script>
+<script src="bbb.js" type="module"></ script>
+
+export default
+某些情况下,一个模块中包含某个的功能,我们并不希望给这个功能命名,而且让导入者可以自己来命名
+这个时候就可以使用export default
+    //info.js
+    export default function(){
+        console.log('default function')
+    }
+
+    我们来到main.js中，这样使用就可以了
+    这里的myFunc是我自己命名的,你可以根据需要命名它对应的名字
+    import myFunc from './info.js'
+    myFunc()
+
+    ·export default 在同一个模块中，不允许同时存在多个
