@@ -1,0 +1,469 @@
+能够说出什么是前后端交互模式
+能够说出Promise的相关概念和用法(服务器端基础概念 笔记)
+能够使用fetch进行接口调用
+能够使用axios进行接口调用
+能够使用async/await方式调用接口
+能够基于后台接口实现案例
+
+传统的URL
+    格式：schema://host:port/path?query#fragment
+    1.schema:协议，例如http、https、ftp
+    2.host：域名或ip地址
+    3.port：端口，http默认端口80，可以省略
+    4.path：路径，例如/abc/a/b/c
+    5.query：查询参数，例如uname=lisi&age=12
+    6.fragment：锚点（哈希Hash），用于定位页面的某个位置
+Restful形式的URL
+    HTTP请求方式
+        1.GET 查询
+        2.POST 添加
+        3.PUT 修改
+        4.DELETE 删除
+
+Promise用法
+  异步调用
+    异步效果分析：1.定时任务
+                  2.Ajax
+                  3.事件函数
+    多次异步调用的依赖分析
+        多次异步调用的结果顺序不确定
+        异步调用结果如果存在依赖需要嵌套
+    Promise概述
+    Promise是异步编程的一种解决方案，从语法上讲，Promise是一个对象，从它可以获取异步操作的消息
+    使用Promise主要有以下好处：
+     可以避免多层异步调用嵌套问题（回调地狱）
+     Promise对象提供了简洁的API,使得控制异步操作更加容易
+     Promise的基本用法
+        实例化Promise对象，构造函数中传递函数，该函数中用于处理异步任务
+        resolve和reject两个参数用于处理成功和失败两种情况，并通过p.then获取处理结果
+        var p=new Promise(function(resolve,reject){
+            //成功是调用resolve()
+            //失败时调用reject()
+        });
+        p.then(function(ret){
+            //从resolve得到正常结果
+        },function(ret){
+            //从reject得到错误信息
+        });
+     基于Promise处理Ajax请求
+        1.处理Ajax
+        function  queryData(){
+            return new Promise(function(resolve,reject){
+                var xhr=new XMLHttpRequest();
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState !=4) return;
+                    if(xhr.status==200){
+                        resolve(xhr.responseText)
+                    }else{
+                        reject('出错了')
+                    }
+                }
+                xhr.open('get','/data');
+                xhr.send(null);
+            })
+        }
+    发送多次ajax请求
+    queryData()
+        .then(function(data){
+            return queryData();
+        })
+         .then(function(data){
+            return queryData();
+        })
+         .then(function(data){
+            return queryData();
+        });
+    then参数中的函数返回值
+        1.返回Promise实例对象
+            返回的该实例对象会调用下一个then
+        2.返回普通值
+            返回的普通值会传递给下一个then，通过then参数中函数的参数接收该值
+    Promise常用的API
+        1.实例方法
+            p.then() 得到异步任务的正确结果
+            p.catch() 获取异常信息
+            p.finally() 成功与否都会执行（尚且不是正式标准）
+            queryData()
+                .then(function(data){
+                   console.log(data);
+                })
+                 .catch(function(data){
+                    console.log(data);
+                })
+                 .finally(function(data){
+                     console.log('finished');
+                });
+        2.对象方法
+            Promise.all()并发处理多个异步任务，所有任务都执行完成才能得到结果
+            Promise.race()并发处理多个异步任务，只要有一个任务完成就能得到结果
+            Promise.all([p1,p2,p3]).then((result)=>{
+                console.log(result)
+            })
+             Promise.race([p1,p2,p3]).then((result)=>{
+                console.log(result)
+            })
+
+接口调用-fetch用法
+    fetch概述
+        1.基本特性
+            更加简单的数据获取方式，功能更强大，更灵活，可以看做是xhr的升级版
+            基于Promise实现
+        2.语法结构
+            fetch(url).then(fn2)
+                      .then(fn3)
+                      ...
+                      .catch(fn)
+
+            fetch('/abc').then(data=>{
+                return data.text();
+            }).then(ret=>{
+                //注意这里得到的才是最终的数据
+                console.log(ret);
+            })
+            (text()方法属于fetchAPI的一部分，它返回一个Promise实例对象，用于获取后台返回的数据)
+    fetch请求参数
+        1.常用配置选项
+            methods(String):HTTP请求方法，默认为GET（GET、POST、PUT、DELETE）
+            body(String):HTTP的请求参数
+            headers(Object):HTTP的请求头，默认为{}
+            fetch('/abc',{
+                method:'get'
+            }).then(data=>{
+                return data.text();
+            }).then(ret=>{
+                //注意这里的到的才是最终的数据
+                console.log(ret);
+            });
+        2.GET请求方式的参数传递
+            fetch('/abc?id=123').then(data=>{
+                return data.text();
+            }).then(ret=>{
+                 //注意这里的到的才是最终的数据
+                console.log(ret);
+            })
+
+             fetch('/abc/123',{
+                method:'get'
+            }).then(data=>{
+                return data.text();
+            }).then(ret=>{
+                //注意这里的到的才是最终的数据
+                console.log(ret);
+            });
+        3.DELETE请求方式的参数传递
+            fetch('/abc/123',{
+                method:'delete'
+            }).then(data=>{
+                return data.text();
+            }).then(ret=>{
+                 //注意这里的到的才是最终的数据
+                console.log(ret);
+            })
+        4.POST请求方式的参数传递
+            fetch('/books',{
+                method:'post',
+                body:'uname=lisi&pwd=123',
+                headers:{
+                    'Content-Type':'application/x-www-form-urlencoded',
+                }
+            }).then(data=>{
+                return data.text();
+            }).then(ret=>{
+                console.log(ret);
+            })
+
+            fetch('/books',{
+                method:'post',
+                body:JSON.stringfy({
+                    uname:'lisi',
+                    age:12
+                })
+                headers:{
+                    'Content-Type':'application/json',
+                }
+            }).then(data=>{
+                return data.text();
+            }).then(ret=>{
+                console.log(ret);
+            })
+        5.PUT请求方式的参数传递
+              fetch('/books/123',{
+                method:'put',
+                body:JSON.stringfy({
+                    uname:'lisi',
+                    age:12
+                })
+                headers:{
+                    'Content-Type':'application/json',
+                }
+            }).then(data=>{
+                return data.text();
+            }).then(ret=>{
+                console.log(ret);
+            })
+    fetch响应结果
+        响应数据格式
+            text():将返回体处理成字符串类型
+            json():将返回结果和JSON.parse(responseText)一样
+            fetch('/data' then(data)=>{
+                //return data.text();
+                return data.json();
+            }).then(ret=>{
+                console.log(ret);
+            })
+
+接口调用-axios用法
+    axios的基本特性
+        axios是一个基于Promise用于浏览器和node.js的HTTP客户端
+        它具有以下特征：
+        支持浏览器和node.js
+        支持promise
+        能拦截请求和响应
+        自动转换JSON数据
+        (
+        功能特点:
+            在浏览器中发送XMLHttpRequests请求
+            在node.js中发送http请求
+            支持Promise API
+            拦截请求和响应
+            转换请求和响应数据
+            等等
+        )
+
+        支持多种请求方式:
+            axips(config)
+            axios.request(config)
+            axios.get(url[ config])
+            axios.delete(url[ config])
+            axios.head(url[ config])
+            axios.post(url[ data[ config]])
+            axios.put(ur[, data[ config]])
+            axios.patch(url[ data[, config])
+
+    axios的基本用法
+        axios.get('/adata')
+            .then(ret=>{
+                //data属性名称是固定的，用于获取后台响应的数据
+                console.log(ret.data)
+            })
+    axios的常用API
+        1.get 查询数据
+        2.post 添加数据
+        3.put 修改数据
+        4.delete 删除数据
+    axios的参数传递
+        1.GET传递参数
+            通过URL传递参数
+            通过params选项传递参数（axios专门提供）
+            //传统url传参
+            axios.get('/adata?id=123')
+                .then(ret=>{
+                    console.log(ret.data)
+                })
+
+            //Restful 形式传参
+            axios.get('/adata/123')
+                .then(ret=>{
+                    console.log(ret.data)
+                })
+            axios.get('/adata',{
+                params:{
+                    id:123
+                }
+            })
+                .then(ret=>{
+                    console.log(ret.data)
+                })
+        2.DELETE传递参数
+            参数传递方式与GET类似
+                 axios.delete('/adata?id=123')
+                    .then(ret=>{
+                        console.log(ret.data)
+                    })
+                axios.delete('/adata/123')
+                    .then(ret=>{
+                        console.log(ret.data)
+                    })
+                axios.delete('/adata',{
+                    params:{
+                        id:123
+                    }
+                })
+                    .then(ret=>{
+                        console.log(ret.data)
+                    })
+        3.POST传递参数
+            通过选项传递参数（默认传递的是json格式的教程）
+                axios.post('/adata',{
+                    uname:'tom',
+                    pwd:123
+                }).then(ret=>{
+                    console.log(ret.data)
+                })
+            通过URLSearchParams传递参数（application/x-www-form-urlencoded）
+                const params=new URLSearchParams();
+                params.append('paraml','value1');
+                params.append('param2','value2');
+                axios.post('/api/test',params).then(ret=>{
+                    console.log(ret.data)
+                })
+        4.PUT传递参数
+            参数传递方式与POST类似
+                axios.put('/adata/123',{
+                    uname:'tom',
+                    pwd:123
+                }).then(ret=>{
+                    console.log(ret.data)
+                })
+
+    axios的响应结果
+        响应结果的主要属性
+            data:实际响应回来的数据
+            headers:响应头信息
+            status:响应状态码
+            statusText:响应状态信息
+            axios.post('/axios-josn').then(ret=>{
+                console.log(ret)
+            })
+
+    axios的全局配置
+      常见的配置选项
+        请求地址
+        0 url: /user',
+        请求类型
+        0 method: 'get',
+        请根路径
+        0 baseURL: 'http://www.mt.com/api,
+        请求前的数据处理
+        0 transformRequest:[function(data)}]
+        请求后的数据处理
+        口transformResponse: [function(data){],
+        自定义的请求头
+        口headers:{'x Requested With':"XMLHttpRequest',
+        URL查询对象
+        0 params:{ id: 12 },
+        查询对象序列化函数
+        0 paramsSerializer: function(params){ }
+        request body
+        0 data: { key: 'aa'},
+        超时设置s
+        口timeout: 1000,
+        跨域是否带Token
+        0 withCredentials: false,
+        自定义请求处理
+        0 adapter: function(resolve, reject, config)0,
+        身份验证信息
+        0 auth: { uname: " pwd: '12'},
+        响应的数据格式json / blob /document /arraybuffer / text
+        / stream
+        responseType: 'json',
+
+
+        axios.default.timeout=3000;//超时时间
+        axios.default.baseURL='http://localhost:3000/app'//默认地址
+        axios.default.headers['mytoken']='hello';//设置请求头  (需要后台进行配置)
+
+        //配置请求的基本url地址
+        axios.defaults.baseURL = 'http://localhost:3000/'
+        axios.get('axios-json').then(function(ret) {
+            console.log(ret.data)
+        })
+
+    axios拦截器
+        1.请求拦截器
+            在请求发出之前设置一些信息
+            // 添加一个请求拦截器
+            axios.interceptors.request.use(function(config){
+                //在请求发出之前进行一些信息设置
+                return config;
+            },function(err){
+                //处理响应的错误信息
+            })
+
+            =============================
+
+            axios.interceptors.request.use(function(config){
+                console.log(config.url);
+                config.headers.mytoken('nihao');
+                return config; //必须将配置信息return出去
+            },function(err){
+                console.log(err)
+            })
+            axios.get('http://localhost:3000/adata').then(function(data){
+                console.log(data)
+            })
+
+
+
+        2.响应拦截器
+            在获取数据之前对数据做一些加工处理
+             // 添加一个响应拦截器
+            axios.interceptors.response.use(function(res){
+                //在这里对返回的数据进行处理
+                return res;
+            },function(err){
+                //处理响应的错误信息
+            })
+            =====================
+           axios.interceptors.response.use(function(res){
+                //console.log(res);  //不是实际的数据 是对象
+                var data = res.data; //这个是 实际的数据
+                return data; //必须将配置信息return出去
+           },function(err){
+                console.log(err)
+           })
+           axios.get('http://localhost:3000/adata').then(function(data){
+                console.log(data)
+           })
+
+接口调用-async/await用法
+    async/await的基本用法
+        async/await是ES7引入的新语法，可以更加方便的进行异步操作
+        async关键字用于函数上（async函数的返回值是Promise实例对象）
+        await关键字用于async函数当中（await可以得到异步的结果）
+        async function queryData(id){
+            const ret=await axios.get('/data');
+            return ret;
+        }
+        queryData.then(ret=>{
+            console.log(ret)
+        })
+    async/await处理多个异步请求
+        async function queryData(id){
+            const info=await axios.get('/asyncl');
+            const ret=await axios.get('async2?info='+info.data);
+            return ret;
+        }
+        queryData.then(ret=>{
+            console.log(ret)
+        })
+
+        ======================
+        前端：
+        async function queryData(){
+            var info = await axios.get('async1');
+            var ret = await axios.get('async2?info='+info.data);
+            return ret.data
+        }
+        queryData().then(function(data){
+            console.log(data)   //结果为  world
+        })
+
+        后台：
+        app.get('/async1',(req,res) => {
+            res.send('hello')
+        })
+        app.get('async2',(req,res) => {
+            if(req.query.info == 'hello'){
+                res.send('world')
+            }else{
+                res.send(error)
+            }
+        })
+
+
+
+
+
+
+不要在项目里直接引用第三方框架
