@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="prop-types.js"></script>
+    <script src="babel.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        class Life extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {
+                    opacity: 1
+                }
+                this.distroyComponent = this.distroyComponent.bind(this)
+            }
+            componentDidMount(){
+                //启动循环定时器
+                this.intevalId = setInterval(function () {
+                    console.log('执行了')
+                    let {opacity} = this.state
+                    opacity -= 0.1
+                    if(opacity <= 0){
+                        opacity = 1
+                    }
+                    this.setState({opacity})
+                }.bind(this),200)
+            }
+            distroyComponent(){
+                ReactDOM.unmountComponentAtNode(document.getElementById("example"))
+            }
+            componentWillUnmount(){
+                clearInterval(this.intevalId)
+            }
+
+            render(){
+                const {opacity} = this.state
+                return(
+                    <div>
+                        <h2 style={{opacity}}>{this.props.msg}</h2>
+                        <button onClick={this.distroyComponent}>不活了</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Life msg="React太难了！"/>,document.getElementById("example"))
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <!--<script src="prop-types.js"></script>-->
+    <script src="babel.min.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        /*
+        * 需求：组定义组件，功能说明如下：
+        * 1.界面如图页面所示
+        * 2.点击按钮，提示第一个输入框中的值
+        * 3.当第2个输入框失去焦点时，提示这个输入框中的值
+        * */
+        //1.定义组件
+        class MyComponent extends React.Component{
+            constructor(props){
+                super(props)
+                this.showInput = this.showInput.bind(this)
+                this.handleBlur = this.handleBlur.bind(this)
+
+            }
+            showInput(){
+                // const input  = this.refs.content
+                // alert(input.value)
+                alert(this.input.value)
+            }
+            handleBlur(event){
+                alert(event.target.value)
+            }
+            render(){
+                return (
+                    <div>
+                        <input type="text" ref="content" />&nbsp;&nbsp;
+                        /*参数input是指当前DOM元素，this指的是组件对象*/
+                        <input type="text" ref={input => this.input = input} />&nbsp;&nbsp;
+                        <button onClick={this.showInput}>提示输入</button>&nbsp;&nbsp;
+                        <input type="text" onBlur={this.handleBlur} placeholder="失去焦点提示内容"/>
+                    </div>
+                )
+            }
+        }
+        //2.渲染组件标签
+        ReactDOM.render(<MyComponent/>,document.getElementById("example"))
+    </script>
+</body>
+</html>
