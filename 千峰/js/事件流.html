@@ -2,9 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <style>
+
+        .father{
+            position: relative;
+            margin:100px auto;
+            width: 200px;
+            height: 200px;
+            background-color: #6bdea7;
+        }
+        .father .son{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+            height:100px;
+            width: 100px;
+            background-color: purple;
+
+
+        }
+    </style>
 </head>
 <body>
-$END$
+<div class="father">
+    <div class="son"></div>
+</div>
+<script>
+    var father = document.querySelector('.father');
+    var son  = document.querySelector('.son');
+
+    //捕获阶段 document -> html -> body -> father -> son
+    /*father.addEventListener('click',function () {
+        alert('father')
+    },true);
+    son.addEventListener('click',function () {
+        alert('son')
+    },true);
+    document.addEventListener('click',function () {
+        alert('document')
+    },true);*/
+
+    //冒泡阶段 son -> father -> body -> html -> document
+    father.addEventListener('click',function () {
+        alert('father')
+    });
+    // son.addEventListener('click',function () {
+    //     alert('son')
+    // });
+    document.addEventListener('click',function () {
+        alert('document')
+    });
+
+
+</script>
 </body>
 </html>
